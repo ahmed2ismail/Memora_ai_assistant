@@ -64,7 +64,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
-                  transform: Matrix4.translationValues(0, 0, 0)..scale(2.0),
+                  transform: Matrix4.translationValues(0, 0, 0)..scaleByDouble(2.0, 2.0, 2.0, 1.0),
                 ),
               ),
               SafeArea(
