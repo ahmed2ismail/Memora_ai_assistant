@@ -8,6 +8,7 @@ class MemoraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Memora AI Assistant',
       theme: AppTheme.darkTheme,
       routerConfig: appRouter,
