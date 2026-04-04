@@ -20,7 +20,8 @@ final GlobalKey<NavigatorState> _shellNavigatorProfile = GlobalKey<NavigatorStat
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
-  initialLocation: '/',
+  initialLocation: '/', // Always start fresh from the Onboarding flow
+  debugLogDiagnostics: true, // Detailed navigation logging
   routes: [
     GoRoute(
       path: '/',
@@ -36,7 +37,7 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/dashboard',
-              builder: (context, state) => const AlzheimerDashboardPage(), // Testing Alzheimer flow
+              builder: (context, state) => const AlzheimerDashboardPage(),
               routes: [
                 GoRoute(
                   path: 'details/:id',
