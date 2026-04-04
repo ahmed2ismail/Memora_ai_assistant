@@ -15,14 +15,17 @@ class AlzheimerDashboardLoaded extends AlzheimerDashboardState {
   final AlzheimerMedicationItem nextMedication;
   final AlzheimerAiPrompt aiPrompt;
   final String? alertMessage;
+  // Unique timestamp ensures every emit() is treated as a new state
+  // by Equatable, so BlocConsumer listeners always fire correctly.
+  final DateTime _ts;
 
-  const AlzheimerDashboardLoaded({
+  AlzheimerDashboardLoaded({
     required this.patientName,
     required this.dateAndWeather,
     required this.nextMedication,
     required this.aiPrompt,
     this.alertMessage,
-  });
+  }) : _ts = DateTime.now();
 
   AlzheimerDashboardLoaded copyWith({
     String? patientName,
@@ -42,5 +45,5 @@ class AlzheimerDashboardLoaded extends AlzheimerDashboardState {
   }
 
   @override
-  List<Object?> get props => [patientName, dateAndWeather, nextMedication, aiPrompt, alertMessage];
+  List<Object?> get props => [patientName, dateAndWeather, nextMedication, aiPrompt, alertMessage, _ts];
 }

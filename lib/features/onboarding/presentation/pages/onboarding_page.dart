@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -43,9 +44,19 @@ class _OnboardingViewState extends State<OnboardingView> {
     return Scaffold(
       body: BlocConsumer<OnboardingCubit, OnboardingState>(
         listener: (context, state) {
-          if (state is OnboardingCacheSuccess || 
-             (state is OnboardingStatusChecked && !state.isFirstTimer)) {
-            context.go('/dashboard');
+          // In debug mode, always show onboarding so developers
+          // can test the full flow on every Hot Restart.
+          // In release builds, persistent state is respected normally.
+          if (!kDebugMode) {
+            if (state is OnboardingCacheSuccess ||
+                (state is OnboardingStatusChecked && !state.isFirstTimer)) {
+              context.go('/dashboard');
+            }
+          } else {
+            // Debug-only: only navigate after the user explicitly selects a profile.
+            if (state is OnboardingCacheSuccess) {
+              context.go('/dashboard');
+            }
           }
         },
         builder: (context, state) {
