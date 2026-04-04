@@ -45,7 +45,7 @@ class _OnboardingViewState extends State<OnboardingView> {
         listener: (context, state) {
           if (state is OnboardingCacheSuccess || 
              (state is OnboardingStatusChecked && !state.isFirstTimer)) {
-            context.go('/home');
+            context.go('/dashboard');
           }
         },
         builder: (context, state) {
