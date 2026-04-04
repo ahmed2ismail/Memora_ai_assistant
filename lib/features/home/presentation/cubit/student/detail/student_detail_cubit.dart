@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/entities/student_models.dart';
+import '../../../../domain/entities/student_models.dart';
 import 'student_detail_state.dart';
 
 class StudentDetailCubit extends Cubit<StudentDetailState> {
@@ -42,5 +42,16 @@ class StudentDetailCubit extends Cubit<StudentDetailState> {
         QuickActionItem(iconName: "rocket_launch", label: "Explore", colorMode: "primary"),
       ],
     ));
+  }
+
+  void triggerAction(String actionName) async {
+    if (state is StudentDetailLoaded) {
+      final currentState = state as StudentDetailLoaded;
+      emit(currentState.copyWith(alertMessage: "Processing $actionName..."));
+      await Future.delayed(const Duration(seconds: 1));
+      emit(currentState.copyWith(alertMessage: "$actionName successfully completed."));
+      await Future.delayed(const Duration(seconds: 2));
+      emit(currentState.copyWith(clearAlert: true));
+    }
   }
 }

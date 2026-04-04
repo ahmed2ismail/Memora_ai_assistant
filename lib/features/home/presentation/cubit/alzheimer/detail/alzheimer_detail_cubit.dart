@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/entities/alzheimer_models.dart';
+import '../../../../domain/entities/alzheimer_models.dart';
 import 'alzheimer_detail_state.dart';
 
 class AlzheimerDetailCubit extends Cubit<AlzheimerDetailState> {
@@ -34,5 +34,16 @@ class AlzheimerDetailCubit extends Cubit<AlzheimerDetailState> {
         mapImagePath: "https://lh3.googleusercontent.com/aida-public/AB6AXuDtwEHDZVacs_QwKj6TV8rdYxq3QU0o0GhlPlw-qjuxEZkAP3JkBeae7gnvNd3r_cCG35pRo7A9yOsoxoqM1aoZcO13HxNkWE9YsnLfNwhTnYuCK0uEgzNK5tfueD7O-BysK7EukiM8G90EHVnhTfnNBYEqAAzb5hUtwgrGhbeSlBbpgGZlkH7uk23OKotlzhJAvHTd5iZfQQ8O0oTbdt_TPfKbZ2w97MUHQV5vR8-LjJfC-i22bdz_HX27sZQ-yuKW-BDnotkNAngx",
       ),
     ));
+  }
+
+  void callCaretaker() async {
+    if (state is AlzheimerDetailLoaded) {
+      final currentState = state as AlzheimerDetailLoaded;
+      emit(currentState.copyWith(alertMessage: "Calling Caretaker (${currentState.safeZoneData.locationName})..."));
+      await Future.delayed(const Duration(seconds: 1));
+      emit(currentState.copyWith(alertMessage: "Caretaker has been notified of your location."));
+      await Future.delayed(const Duration(seconds: 2));
+      emit(currentState.copyWith(clearAlert: true));
+    }
   }
 }

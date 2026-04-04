@@ -12,81 +12,89 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(130),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Row 1: Identity & Settings
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 36,
-                            height: 36,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+      body: Column(
+        children: [
+          SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Row 1: Identity & Settings
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 36,
+                              height: 36,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+                              ),
+                              child: const ClipOval(
+                                child: Icon(Icons.person, color: AppColors.onSurfaceVariant, size: 20),
+                              ),
                             ),
-                            child: const ClipOval(
-                              child: Icon(Icons.person, color: AppColors.onSurfaceVariant, size: 20),
+                            const SizedBox(width: 12),
+                            Flexible(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "User",
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.onSurface,
+                                      ),
+                                ),
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 12),
-                          Flexible(
-                            child: Text(
-                              "Ahmed Ismail",
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.onSurface,
-                                  ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    GestureDetector(
-                      onTap: () => _onTap(context, 4),
-                      child: Container(
-                        width: 36,
-                        height: 36,
-                        decoration: const BoxDecoration(
-                          color: AppColors.surfaceContainerHighest,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Center(
-                          child: Icon(Icons.settings, color: AppColors.primary, size: 18),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                // Row 2: Brand Logo
-                Text(
-                  "Memora",
-                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: AppColors.primary,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: -0.5,
+                      const SizedBox(width: 16),
+                      GestureDetector(
+                        onTap: () => _onTap(context, 4),
+                        child: Container(
+                          width: 36,
+                          height: 36,
+                          decoration: const BoxDecoration(
+                            color: AppColors.surfaceContainerHighest,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Center(
+                            child: Icon(Icons.settings, color: AppColors.primary, size: 18),
+                          ),
+                        ),
                       ),
-                ),
-              ],
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  // Row 2: Brand Logo
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Memora",
+                      style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                            color: AppColors.primary,
+                            fontSize: 28,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: -0.5,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+          Expanded(child: navigationShell),
+        ],
       ),
-      body: navigationShell,
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(32),

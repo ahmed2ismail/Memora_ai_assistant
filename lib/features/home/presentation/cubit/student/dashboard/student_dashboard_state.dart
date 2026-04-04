@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../domain/entities/student_models.dart';
+import '../../../../domain/entities/student_models.dart';
 
 abstract class StudentDashboardState extends Equatable {
   const StudentDashboardState();

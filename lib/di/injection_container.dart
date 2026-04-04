@@ -10,12 +10,12 @@ import '../features/onboarding/domain/usecases/cache_first_timer.dart';
 import '../features/onboarding/domain/usecases/check_if_user_is_first_timer.dart';
 import '../features/onboarding/presentation/cubit/onboarding_cubit.dart';
 
-import '../features/home/presentation/cubit/general_dashboard_cubit.dart';
-import '../features/home/presentation/cubit/general_detail_cubit.dart';
-import '../features/home/presentation/cubit/student_dashboard_cubit.dart';
-import '../features/home/presentation/cubit/student_detail_cubit.dart';
-import '../features/home/presentation/cubit/alzheimer_dashboard_cubit.dart';
-import '../features/home/presentation/cubit/alzheimer_detail_cubit.dart';
+import '../features/home/presentation/cubit/general/dashboard/general_dashboard_cubit.dart';
+import '../features/home/presentation/cubit/general/detail/general_detail_cubit.dart';
+import '../features/home/presentation/cubit/student/dashboard/student_dashboard_cubit.dart';
+import '../features/home/presentation/cubit/student/detail/student_detail_cubit.dart';
+import '../features/home/presentation/cubit/alzheimer/dashboard/alzheimer_dashboard_cubit.dart';
+import '../features/home/presentation/cubit/alzheimer/detail/alzheimer_detail_cubit.dart';
 
 import '../features/ai_assistant/data/datasources/gemini_remote_datasource.dart';
 import '../features/ai_assistant/data/repositories/ai_repository_impl.dart';

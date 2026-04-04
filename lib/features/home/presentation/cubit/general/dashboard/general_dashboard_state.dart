@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../domain/entities/general_models.dart';
+import '../../../../domain/entities/general_models.dart';
 
 abstract class GeneralDashboardState extends Equatable {
   const GeneralDashboardState();

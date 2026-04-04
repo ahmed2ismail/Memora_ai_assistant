@@ -75,7 +75,7 @@ class _AiAssistantViewState extends State<AiAssistantView> {
       builder: (context, state) {
         return SingleChildScrollView(
           controller: _scrollController,
-          padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
+          padding: const EdgeInsets.only(top: 20, bottom: 120, left: 24, right: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

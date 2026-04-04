@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/entities/student_models.dart';
+import '../../../../domain/entities/student_models.dart';
 import 'student_dashboard_state.dart';
 
 class StudentDashboardCubit extends Cubit<StudentDashboardState> {

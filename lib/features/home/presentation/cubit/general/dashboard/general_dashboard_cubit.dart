@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/entities/general_models.dart';
+import '../../../../domain/entities/general_models.dart';
 import 'general_dashboard_state.dart';
 
 class GeneralDashboardCubit extends Cubit<GeneralDashboardState> {

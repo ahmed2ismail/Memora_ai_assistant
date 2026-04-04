@@ -26,8 +26,15 @@ class SettingsPricingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
-      child: BlocBuilder<SettingsCubit, SettingsState>(
+      padding: const EdgeInsets.only(top: 20, bottom: 120, left: 24, right: 24),
+      child: BlocConsumer<SettingsCubit, SettingsState>(
+        listener: (context, state) {
+          if (state is SettingsLoaded && state.alertMessage != null) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(content: Text(state.alertMessage!), duration: const Duration(seconds: 1)));
+          }
+        },
         builder: (context, state) {
           if (state is SettingsLoading) {
             return const SizedBox(
@@ -486,7 +493,9 @@ class SettingsPricingView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
-          onPressed: () {},
+          onPressed: () {
+            context.read<SettingsCubit>().processAction("Plan updated to ${plan.name} successfully");
+          },
           child: Text(plan.buttonLabel, style: AppStyles.body14(context, weight: FontWeight.bold)),
         ),
       );
@@ -513,7 +522,9 @@ class SettingsPricingView extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
-              onTap: () {},
+              onTap: () {
+                context.read<SettingsCubit>().processAction("Subscribed to ${plan.name} Plan");
+              },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Center(
@@ -538,7 +549,9 @@ class SettingsPricingView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
-        onPressed: () {},
+        onPressed: () {
+          context.read<SettingsCubit>().processAction("Subscribed to ${plan.name} Plan");
+        },
         child: Text(
           plan.buttonLabel,
           style: AppStyles.body14(context, color: accentColor, weight: FontWeight.bold),

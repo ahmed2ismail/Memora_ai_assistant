@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/entities/alzheimer_models.dart';
+import '../../../../domain/entities/alzheimer_models.dart';
 import 'alzheimer_dashboard_state.dart';
 
 class AlzheimerDashboardCubit extends Cubit<AlzheimerDashboardState> {
@@ -20,5 +20,15 @@ class AlzheimerDashboardCubit extends Cubit<AlzheimerDashboardState> {
         suggestions: ["Who is Sarah?", "Where am I?"],
       ),
     ));
+  }
+  void triggerEmergency() async {
+    if (state is AlzheimerDashboardLoaded) {
+      final currentState = state as AlzheimerDashboardLoaded;
+      emit(currentState.copyWith(alertMessage: "Calling 911 and Alerting Caregiver..."));
+      await Future.delayed(const Duration(seconds: 1));
+      emit(currentState.copyWith(alertMessage: "Emergency contacts notified successfully."));
+      await Future.delayed(const Duration(seconds: 2));
+      emit(currentState.copyWith(clearAlert: true));
+    }
   }
 }

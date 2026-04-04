@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/entities/general_models.dart';
+import '../../../../domain/entities/general_models.dart';
 import 'general_detail_state.dart';
 
 class GeneralDetailCubit extends Cubit<GeneralDetailState> {

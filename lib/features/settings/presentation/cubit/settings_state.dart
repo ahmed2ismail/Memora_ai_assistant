@@ -7,6 +7,7 @@ abstract class SettingsState extends Equatable {
   final List<AccessibilityToggle> accessibilityToggles;
   final List<CognitiveReminderToggle> cognitiveReminders;
   final List<PricingPlan> plans;
+  final String? alertMessage;
 
   const SettingsState({
     required this.selectedModeId,
@@ -14,10 +15,11 @@ abstract class SettingsState extends Equatable {
     required this.accessibilityToggles,
     required this.cognitiveReminders,
     required this.plans,
+    this.alertMessage,
   });
 
   @override
-  List<Object> get props => [selectedModeId, modes, accessibilityToggles, cognitiveReminders, plans];
+  List<Object?> get props => [selectedModeId, modes, accessibilityToggles, cognitiveReminders, plans, alertMessage];
 }
 
 class SettingsLoading extends SettingsState {
@@ -38,5 +40,25 @@ class SettingsLoaded extends SettingsState {
     required super.accessibilityToggles,
     required super.cognitiveReminders,
     required super.plans,
+    super.alertMessage,
   });
+
+  SettingsLoaded copyWith({
+    String? selectedModeId,
+    List<ExperienceMode>? modes,
+    List<AccessibilityToggle>? accessibilityToggles,
+    List<CognitiveReminderToggle>? cognitiveReminders,
+    List<PricingPlan>? plans,
+    String? alertMessage,
+    bool clearAlert = false,
+  }) {
+    return SettingsLoaded(
+      selectedModeId: selectedModeId ?? this.selectedModeId,
+      modes: modes ?? this.modes,
+      accessibilityToggles: accessibilityToggles ?? this.accessibilityToggles,
+      cognitiveReminders: cognitiveReminders ?? this.cognitiveReminders,
+      plans: plans ?? this.plans,
+      alertMessage: clearAlert ? null : (alertMessage ?? this.alertMessage),
+    );
+  }
 }

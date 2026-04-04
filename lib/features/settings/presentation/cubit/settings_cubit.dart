@@ -83,13 +83,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   void selectMode(String modeId) {
     if (state is SettingsLoaded) {
       final loaded = state as SettingsLoaded;
-      emit(SettingsLoaded(
-        selectedModeId: modeId,
-        modes: loaded.modes,
-        accessibilityToggles: loaded.accessibilityToggles,
-        cognitiveReminders: loaded.cognitiveReminders,
-        plans: loaded.plans,
-      ));
+      emit(loaded.copyWith(selectedModeId: modeId));
     }
   }
 
@@ -100,13 +94,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         if (t.id == toggleId) return t.copyWith(isEnabled: !t.isEnabled);
         return t;
       }).toList();
-      emit(SettingsLoaded(
-        selectedModeId: loaded.selectedModeId,
-        modes: loaded.modes,
-        accessibilityToggles: updated,
-        cognitiveReminders: loaded.cognitiveReminders,
-        plans: loaded.plans,
-      ));
+      emit(loaded.copyWith(accessibilityToggles: updated));
     }
   }
 
@@ -115,13 +103,18 @@ class SettingsCubit extends Cubit<SettingsState> {
       final loaded = state as SettingsLoaded;
       final updated = List<CognitiveReminderToggle>.from(loaded.cognitiveReminders);
       updated[index] = updated[index].copyWith(isEnabled: !updated[index].isEnabled);
-      emit(SettingsLoaded(
-        selectedModeId: loaded.selectedModeId,
-        modes: loaded.modes,
-        accessibilityToggles: loaded.accessibilityToggles,
-        cognitiveReminders: updated,
-        plans: loaded.plans,
-      ));
+      emit(loaded.copyWith(cognitiveReminders: updated));
+    }
+  }
+
+  void processAction(String message) async {
+    if (state is SettingsLoaded) {
+      final loaded = state as SettingsLoaded;
+      emit(loaded.copyWith(alertMessage: "Connecting to App Store..."));
+      await Future.delayed(const Duration(seconds: 1));
+      emit(loaded.copyWith(alertMessage: message));
+      await Future.delayed(const Duration(seconds: 2));
+      emit(loaded.copyWith(clearAlert: true));
     }
   }
 }

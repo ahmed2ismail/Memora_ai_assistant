@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../domain/entities/general_models.dart';
+import '../../../../domain/entities/general_models.dart';
 
 abstract class GeneralDetailState extends Equatable {
   const GeneralDetailState();
