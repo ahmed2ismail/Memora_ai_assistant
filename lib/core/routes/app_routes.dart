@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/main_navigation/presentation/pages/main_scaffold.dart';
 import '../../features/home/presentation/pages/alzheimer_dashboard_page.dart';
+import '../../features/home/presentation/pages/alzheimer_detail_page.dart';
 
 import '../../features/home/presentation/pages/general_dashboard_page.dart';
 import '../../features/home/presentation/pages/general_detail_page.dart';
@@ -35,7 +36,7 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/dashboard',
-              builder: (context, state) => const StudentDashboardPage(), // Testing Student flow
+              builder: (context, state) => const AlzheimerDashboardPage(), // Testing Alzheimer flow
               routes: [
                 GoRoute(
                   path: 'details/:id',
@@ -49,6 +50,13 @@ final GoRouter appRouter = GoRouter(
                   builder: (context, state) {
                     final detailId = state.pathParameters['id'] ?? 'today';
                     return StudentDetailPage(id: detailId);
+                  },
+                ),
+                GoRoute(
+                  path: 'alzheimer-details/:id',
+                  builder: (context, state) {
+                    final detailId = state.pathParameters['id'] ?? 'today';
+                    return AlzheimerDetailPage(id: detailId);
                   },
                 ),
               ],

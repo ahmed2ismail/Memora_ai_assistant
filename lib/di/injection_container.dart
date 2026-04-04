@@ -12,6 +12,7 @@ import '../features/home/presentation/cubit/general_dashboard_cubit.dart';
 import '../features/home/presentation/cubit/student_dashboard_cubit.dart';
 import '../features/home/presentation/cubit/student_detail_cubit.dart';
 import '../features/home/presentation/cubit/alzheimer_dashboard_cubit.dart';
+import '../features/home/presentation/cubit/alzheimer_detail_cubit.dart';
 import '../features/ai_assistant/presentation/cubit/ai_assistant_cubit.dart';
 import '../features/home/presentation/cubit/general_detail_cubit.dart';
 
@@ -29,6 +30,7 @@ Future<void> initDI() async {
   sl.registerFactory(() => StudentDashboardCubit());
   sl.registerFactory(() => StudentDetailCubit());
   sl.registerFactory(() => AlzheimerDashboardCubit());
+  sl.registerFactory(() => AlzheimerDetailCubit());
   sl.registerFactory(() => AiAssistantCubit());
 
   sl.registerLazySingleton(() => CacheFirstTimer(sl()));

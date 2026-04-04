@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/glass_card.dart';
 import '../../../../di/injection_container.dart';
+import 'package:go_router/go_router.dart';
 import '../../domain/entities/alzheimer_models.dart';
 import '../cubit/alzheimer_dashboard_cubit.dart';
 import '../cubit/alzheimer_dashboard_state.dart';
@@ -82,36 +83,39 @@ class AlzheimerDashboardView extends StatelessWidget {
   }
 
   Widget _buildMassiveInteractionZone(BuildContext context) {
-    return GlassCard(
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-      border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.2),
-                  shape: BoxShape.circle,
+    return GestureDetector(
+      onTap: () => GoRouter.of(context).push('/dashboard/alzheimer-details/today'),
+      child: GlassCard(
+        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.person_search, color: AppColors.primary, size: 36),
                 ),
-                child: const Icon(Icons.person_search, color: AppColors.primary, size: 36),
-              ),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Scan Person", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  const SizedBox(height: 4),
-                  Text("Point camera to remember a face", style: Theme.of(context).textTheme.bodyMedium),
-                ],
-              ),
-            ],
-          ),
-          const Icon(Icons.arrow_forward_ios, color: AppColors.primary, size: 32),
-        ],
+                const SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Scan Person", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                    const SizedBox(height: 4),
+                    Text("Point camera to remember a face", style: Theme.of(context).textTheme.bodyMedium),
+                  ],
+                ),
+              ],
+            ),
+            const Icon(Icons.arrow_forward_ios, color: AppColors.primary, size: 32),
+          ],
+        ),
       ),
     );
   }
