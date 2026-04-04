@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/glass_card.dart';
 import '../../../../di/injection_container.dart';
+import 'package:go_router/go_router.dart';
 import '../../domain/entities/general_models.dart';
 import '../cubit/general_dashboard_cubit.dart';
 import '../cubit/general_dashboard_state.dart';
@@ -76,13 +77,19 @@ class GeneralDashboardView extends StatelessWidget {
               child: const Text("Today", style: TextStyle(color: AppColors.onSurfaceVariant)),
             ),
             const SizedBox(width: 8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(20),
+            GestureDetector(
+              onTap: () => {
+                // Must import go_router to jump to details over the shell
+                GoRouter.of(context).push('/dashboard/details/today')
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Text("Overview", style: TextStyle(color: AppColors.primary)),
               ),
-              child: const Text("Overview", style: TextStyle(color: AppColors.primary)),
             ),
           ],
         ),

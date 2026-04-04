@@ -5,7 +5,8 @@ import '../../features/main_navigation/presentation/pages/main_scaffold.dart';
 import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/home/presentation/pages/alzheimer_dashboard_page.dart';
 
-import '../../features/ai_assistant/presentation/pages/ai_assistant_page.dart';
+import '../../features/home/presentation/pages/general_dashboard_page.dart';
+import '../../features/home/presentation/pages/general_detail_page.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorDashboard = GlobalKey<NavigatorState>(debugLabel: 'shell_dashboard');
@@ -32,7 +33,16 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/dashboard',
-              builder: (context, state) => const AlzheimerDashboardPage(),
+              builder: (context, state) => const GeneralDashboardPage(),
+              routes: [
+                GoRoute(
+                  path: 'details/:id',
+                  builder: (context, state) {
+                    final detailId = state.pathParameters['id'] ?? 'today';
+                    return GeneralDetailPage(id: detailId);
+                  },
+                ),
+              ],
             ),
           ],
         ),

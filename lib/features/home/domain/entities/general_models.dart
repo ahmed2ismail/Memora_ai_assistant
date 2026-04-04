@@ -25,3 +25,27 @@ class HabitItem {
     required this.colorHex,
   });
 }
+
+class LocationReminder {
+  final String title;
+  final String locationDescription;
+
+  LocationReminder({
+    required this.title,
+    required this.locationDescription,
+  });
+}
+
+class DetailTaskItem extends TaskItem {
+  final String timeText;
+  final bool isHighPriority;
+
+  DetailTaskItem({
+    required super.title,
+    required super.subtitle,
+    required super.isCompleted,
+    required super.tagColor,
+    required this.timeText,
+    required this.isHighPriority,
+  });
+}
