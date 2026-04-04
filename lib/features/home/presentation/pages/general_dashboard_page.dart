@@ -33,32 +33,40 @@ class GeneralDashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
-      child: BlocBuilder<GeneralDashboardCubit, GeneralDashboardState>(
-        builder: (context, state) {
-          if (state is GeneralDashboardLoading) {
-            return const Center(child: Padding(
-              padding: EdgeInsets.only(top: 100.0),
-              child: CircularProgressIndicator(),
-            ));
-          } else if (state is GeneralDashboardLoaded) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeader(context),
-                const SizedBox(height: 32),
-                _buildPriorityTasks(context, state.tasks),
-                const SizedBox(height: 24),
-                _buildHabitTracker(context, state.habits),
-                const SizedBox(height: 24),
-                _buildReflection(context),
-              ],
-            );
-          }
-          return const SizedBox.shrink();
-        },
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: IntrinsicHeight(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
+                child: BlocBuilder<GeneralDashboardCubit, GeneralDashboardState>(
+                  builder: (context, state) {
+                    if (state is GeneralDashboardLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is GeneralDashboardLoaded) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildHeader(context),
+                          const SizedBox(height: 32),
+                          _buildPriorityTasks(context, state.tasks),
+                          const SizedBox(height: 24),
+                          _buildHabitTracker(context, state.habits),
+                          const SizedBox(height: 24),
+                          _buildReflection(context),
+                        ],
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

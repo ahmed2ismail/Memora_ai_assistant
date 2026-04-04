@@ -26,39 +26,47 @@ class AlzheimerDashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.only(top: 120, bottom: 120, left: 24, right: 24),
-      child: BlocBuilder<AlzheimerDashboardCubit, AlzheimerDashboardState>(
-        builder: (context, state) {
-          if (state is AlzheimerDashboardLoading) {
-            return const Center(child: Padding(
-              padding: EdgeInsets.only(top: 100.0),
-              child: CircularProgressIndicator(),
-            ));
-          } else if (state is AlzheimerDashboardLoaded) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeader(context, state),
-                const SizedBox(height: 32),
-                _buildMassiveInteractionZone(context),
-                const SizedBox(height: 16),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(child: _buildMedicationBlock(context, state.nextMedication)),
-                    const SizedBox(width: 16),
-                    Expanded(child: _buildEmergencyBlock(context)),
-                  ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: IntrinsicHeight(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 120, bottom: 120, left: 24, right: 24),
+                child: BlocBuilder<AlzheimerDashboardCubit, AlzheimerDashboardState>(
+                  builder: (context, state) {
+                    if (state is AlzheimerDashboardLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is AlzheimerDashboardLoaded) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildHeader(context, state),
+                          const SizedBox(height: 32),
+                          _buildMassiveInteractionZone(context),
+                          const SizedBox(height: 16),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(child: _buildMedicationBlock(context, state.nextMedication)),
+                              const SizedBox(width: 16),
+                              Expanded(child: _buildEmergencyBlock(context)),
+                            ],
+                          ),
+                          const SizedBox(height: 24),
+                          _buildAiAssistantWidget(context, state.aiPrompt),
+                        ],
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
                 ),
-                const SizedBox(height: 24),
-                _buildAiAssistantWidget(context, state.aiPrompt),
-              ],
-            );
-          }
-          return const SizedBox.shrink();
-        },
-      ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
