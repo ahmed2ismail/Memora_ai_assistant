@@ -73,38 +73,39 @@ class _OnboardingViewState extends State<OnboardingView> {
                     return SingleChildScrollView(
                       child: ConstrainedBox(
                         constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                        child: IntrinsicHeight(
-                          child: Column(
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 32.0),
-                                child: Text(
-                                  "Memora",
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w800,
-                                    color: Color(0xFF4EDEA3),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 32.0),
+                              child: Text(
+                                "Memora",
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF4EDEA3),
+                                ),
+                              ),
+                            ),
+                            // PageView needs a fixed height within a scrollable Column
+                            SizedBox(
+                              height: 600, // Sufficient height for onboarding content
+                              child: PageView(
+                                controller: _pageController,
+                                physics: const NeverScrollableScrollPhysics(),
+                                children: [
+                                  WelcomeSection(onNext: _nextPage),
+                                  SmartRemindersSection(onNext: _nextPage),
+                                  PersonalizedFeatureSection(onNext: _nextPage),
+                                  ProfileSelectionSection(
+                                    onProfileSelected: () {
+                                      context.read<OnboardingCubit>().cacheFirstTimerStatus();
+                                    },
                                   ),
-                                ),
+                                ],
                               ),
-                              Expanded(
-                                child: PageView(
-                                  controller: _pageController,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  children: [
-                                    WelcomeSection(onNext: _nextPage),
-                                    SmartRemindersSection(onNext: _nextPage),
-                                    PersonalizedFeatureSection(onNext: _nextPage),
-                                    ProfileSelectionSection(
-                                      onProfileSelected: () {
-                                        context.read<OnboardingCubit>().cacheFirstTimerStatus();
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     );

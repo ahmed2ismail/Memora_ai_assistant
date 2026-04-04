@@ -38,28 +38,27 @@ class StudentDashboardView extends StatelessWidget {
         return SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: IntrinsicHeight(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
-                child: BlocBuilder<StudentDashboardCubit, StudentDashboardState>(
-                  builder: (context, state) {
-                    if (state is StudentDashboardLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is StudentDashboardLoaded) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildHeader(context, state.hoursFocused),
-                          const SizedBox(height: 32),
-                          _buildTimeline(context, state.timelineItems),
-                          const SizedBox(height: 32),
-                          _buildInsightsAndMetrics(context, state.metrics),
-                        ],
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
+              child: BlocBuilder<StudentDashboardCubit, StudentDashboardState>(
+                builder: (context, state) {
+                  if (state is StudentDashboardLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is StudentDashboardLoaded) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildHeader(context, state.hoursFocused),
+                        const SizedBox(height: 32),
+                        _buildTimeline(context, state.timelineItems),
+                        const SizedBox(height: 32),
+                        _buildInsightsAndMetrics(context, state.metrics),
+                      ],
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
             ),
           ),

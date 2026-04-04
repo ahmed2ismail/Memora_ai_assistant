@@ -92,7 +92,7 @@ lib/
 ## ⚙️ Engineering Highlights
 
 ### 🚄 The Adaptive Engine
-Memora features a highly adaptive UI architecture that ensures a pixel-perfect experience across all device sizes. By leveraging a combination of **`LayoutBuilder`**, **`SingleChildScrollView`**, **`ConstrainedBox`**, and **`IntrinsicHeight`**, the application:
+Memora features a highly adaptive UI architecture that ensures a pixel-perfect experience across all device sizes. By leveraging a combination of **`LayoutBuilder`**, **`SingleChildScrollView`**, and **`ConstrainedBox`**, the application:
 - **Prevents Bottom Overflows**: Content automatically expands and permits scrolling on small devices.
 - **Maintains Proportional Balance**: On large screens or tablets, bento-grid components stay elegantly centered and proportionally scaled without manual adjustments.
 
