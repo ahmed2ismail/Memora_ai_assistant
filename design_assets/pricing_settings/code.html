@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Memora - Settings &amp; Pricing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#22333c",
+                    "on-primary-fixed": "#002113",
+                    "on-tertiary-fixed-variant": "#384953",
+                    "on-tertiary-fixed": "#0c1e26",
+                    "surface-container": "#171f33",
+                    "tertiary-container": "#1a2a33",
+                    "inverse-primary": "#006c49",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-primary-container": "#00a471",
+                    "surface-container-low": "#131b2e",
+                    "secondary-container": "#af8d11",
+                    "primary-fixed-dim": "#4edea3",
+                    "primary-container": "#002f1e",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed": "#241a00",
+                    "on-secondary-container": "#342800",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-tertiary-container": "#80929c",
+                    "surface-container-lowest": "#060e20",
+                    "surface-tint": "#4edea3",
+                    "on-secondary": "#3c2f00",
+                    "surface-dim": "#0b1326",
+                    "surface-container-highest": "#2d3449",
+                    "on-primary": "#003824",
+                    "on-surface": "#dae2fd",
+                    "background": "#0b1326",
+                    "surface-container-high": "#222a3d",
+                    "on-surface-variant": "#c2c7ce",
+                    "secondary-fixed": "#ffe088",
+                    "surface-bright": "#31394d",
+                    "tertiary": "#b7c9d5",
+                    "primary": "#4edea3",
+                    "secondary": "#e9c349",
+                    "on-error-container": "#ffdad6",
+                    "inverse-surface": "#dae2fd",
+                    "outline": "#8c9197",
+                    "on-secondary-fixed-variant": "#574500",
+                    "outline-variant": "#42474d",
+                    "tertiary-fixed": "#d3e5f1",
+                    "on-background": "#dae2fd",
+                    "error": "#ffb4ab",
+                    "on-error": "#690005",
+                    "surface": "#0b1326",
+                    "inverse-on-surface": "#283044",
+                    "primary-fixed": "#6ffbbe",
+                    "surface-variant": "#2d3449",
+                    "tertiary-fixed-dim": "#b7c9d5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b1326; color: #dae2fd; }
+        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-card {
+            background-color: rgba(45, 52, 73, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(140, 145, 151, 0.15);
+        }
+        .inner-glow {
+            box-shadow: inset 0 0 10px 0 rgba(78, 222, 163, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen pb-32">
+<!-- Top Navigation Bar (Shared Component) -->
+<header class="fixed top-0 left-0 w-full z-50 bg-transparent flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center overflow-hidden">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="close-up portrait of a serene woman with a professional yet gentle expression, soft studio lighting, cool tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC58-2Slz7L-PLeO85isAUH58Wjoxp2drMEidGM7YmXklizaK1pBzoCFA2u3dLowI8cB_bXi1cftfgyu9qjivUHN0hqQJTIlgBP7m3QAnBUSE2iPEQkXmn9b6nrk8nyY_ugoaA1kaSW7jG3rHYDJxFPgetov9EKKpRTRHu0femdnHkTgdNKsLdP8_ZZAzAK7B5wNNguLfjB4MOh8XVvRJRIYKdifuiVlwoWCqkKTtLtpck1qv5IhWRlU7Hl5T_e_l-_n2SSAV2ysV4f"/>
+</div>
+<span class="text-2xl font-bold tracking-tighter text-[#4edea3] font-headline">Memora</span>
+</div>
+<button class="text-slate-400 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-2xl" data-icon="settings_sparkle">settings</span>
+</button>
+</header>
+<main class="max-w-6xl mx-auto px-6 pt-24 space-y-16">
+<!-- Profile & Settings Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<div class="md:col-span-4 space-y-6">
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight font-headline text-white">Settings</h1>
+<p class="text-on-surface-variant text-sm">Manage your account, experience mode, and accessibility preferences.</p>
+<div class="glass-card p-6 rounded-[2rem] inner-glow space-y-6">
+<div class="space-y-1">
+<label class="text-xs uppercase tracking-widest text-primary font-bold">Experience Mode</label>
+<p class="text-on-surface-variant text-[10px]">Tailors the UI and AI focus based on your needs.</p>
+</div>
+<div class="space-y-3">
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-primary-container text-primary border border-primary/30 transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-semibold">Patient</span>
+</div>
+<span class="material-symbols-outlined text-sm">check_circle</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">school</span>
+<span class="font-semibold">Student</span>
+</div>
+</button>
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">person</span>
+<span class="font-semibold">Normal</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+<div class="md:col-span-8 space-y-8">
+<!-- Accessibility Controls (Bento Style) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="glass-card p-6 rounded-[2rem] flex flex-col justify-between min-h-[160px]">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">visibility</span>
+<div class="w-12 h-6 bg-primary rounded-full relative">
+<div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg">High Contrast</h3>
+<p class="text-on-surface-variant text-xs">Enhanced visibility for Patient Mode.</p>
+</div>
+</div>
+<div class="glass-card p-6 rounded-[2rem] flex flex-col justify-between min-h-[160px]">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">text_fields</span>
+<div class="w-12 h-6 bg-surface-container-highest rounded-full relative">
+<div class="absolute left-1 top-1 w-4 h-4 bg-slate-400 rounded-full"></div>
+</div>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg">Large Text</h3>
+<p class="text-on-surface-variant text-xs">Optimize legibility across all screens.</p>
+</div>
+</div>
+<div class="glass-card p-6 rounded-[2rem] flex flex-col justify-between min-h-[160px] sm:col-span-2 bg-gradient-to-br from-surface-container to-surface-dim">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+<h3 class="font-headline font-bold text-lg">Cognitive Reminders</h3>
+</div>
+<span class="text-primary text-xs font-bold px-3 py-1 bg-primary/10 rounded-full">Pro Feature</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest">
+<span class="text-sm">Medication Alerts</span>
+<span class="material-symbols-outlined text-primary">toggle_on</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest">
+<span class="text-sm">Memory Checkpoints</span>
+<span class="material-symbols-outlined text-primary">toggle_on</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="space-y-12">
+<div class="text-center space-y-4">
+<h2 class="text-3xl md:text-5xl font-extrabold tracking-tighter font-headline text-white">Choose Your Journey</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">Elevate your cognitive health with specialized AI assistance tailored for your life stage.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Standard Card -->
+<div class="glass-card p-8 rounded-[2.5rem] flex flex-col border-transparent hover:border-outline-variant transition-all">
+<div class="mb-8">
+<h3 class="text-xl font-bold font-headline mb-2">Standard</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-extrabold text-white">$0</span>
+<span class="text-on-surface-variant text-sm">/month</span>
+</div>
+</div>
+<ul class="space-y-4 mb-12 flex-grow">
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                            Basic Note Taking
+                        </li>
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                            Search History
+                        </li>
+<li class="flex items-center gap-3 text-sm opacity-40">
+<span class="material-symbols-outlined text-lg">cancel</span>
+                            Advanced AI Assistant
+                        </li>
+</ul>
+<button class="w-full py-4 rounded-xl font-bold border border-outline/20 hover:bg-surface-container transition-all">Current Plan</button>
+</div>
+<!-- Student Card (Highlighted) -->
+<div class="relative glass-card p-8 rounded-[2.5rem] flex flex-col scale-105 bg-gradient-to-b from-surface-container-high to-surface-dim border-primary/20 shadow-2xl">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-on-primary text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full">Most Popular</div>
+<div class="mb-8">
+<h3 class="text-xl font-bold font-headline mb-2 text-primary">Student</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-extrabold text-white">$9</span>
+<span class="text-on-surface-variant text-sm">/month</span>
+</div>
+</div>
+<ul class="space-y-4 mb-12 flex-grow">
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span><b>Pro AI Features</b> included</span>
+</li>
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                            Smart Lecture Sync
+                        </li>
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                            Flashcard Generator
+                        </li>
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                            Multi-device Sync
+                        </li>
+</ul>
+<button class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-primary to-on-primary-container text-on-primary shadow-lg shadow-primary/20 hover:opacity-90 transition-all">Get Started</button>
+</div>
+<!-- Life Care Card -->
+<div class="glass-card p-8 rounded-[2.5rem] flex flex-col border-secondary/20 bg-gradient-to-br from-[#0b1326] to-[#1a2a33]">
+<div class="mb-8">
+<h3 class="text-xl font-bold font-headline mb-2 text-secondary">Life Care</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-extrabold text-white">$19</span>
+<span class="text-on-surface-variant text-sm">/month</span>
+</div>
+<p class="text-[10px] text-secondary/70 mt-2 font-medium">Specialized Alzheimer Support</p>
+</div>
+<ul class="space-y-4 mb-12 flex-grow">
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">neurology</span>
+                            Cognitive Preservation Tools
+                        </li>
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+                            Family Sharing &amp; Alerts
+                        </li>
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+                            AI Face Recognition
+                        </li>
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+                            Emergency Geo-fencing
+                        </li>
+</ul>
+<button class="w-full py-4 rounded-xl font-bold border border-secondary/40 text-secondary hover:bg-secondary/10 transition-all">Choose Life Care</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#0b1326]/40 backdrop-blur-xl rounded-t-[2rem] shadow-[0_-10px_40px_rgba(11,19,38,0.15)]">
+<button class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#4edea3] transition-all">
+<span class="material-symbols-outlined text-2xl" data-icon="auto_awesome_mosaic">auto_awesome_mosaic</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#4edea3] transition-all">
+<span class="material-symbols-outlined text-2xl" data-icon="search">search</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#4edea3] transition-all">
+<span class="material-symbols-outlined text-2xl" data-icon="psychology">psychology</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#4edea3] transition-all">
+<span class="material-symbols-outlined text-2xl" data-icon="history_edu">history_edu</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#e9c349] drop-shadow-[0_0_8px_rgba(233,195,73,0.6)] scale-110 active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined text-2xl" data-icon="account_circle" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</button>
+</nav>
+<!-- Aesthetic Geometric Accents -->
+<div class="fixed top-1/4 -right-24 w-64 h-64 bg-primary/5 blur-[120px] pointer-events-none"></div>
+<div class="fixed bottom-1/4 -left-24 w-64 h-64 bg-secondary/5 blur-[120px] pointer-events-none"></div>
+</body></html>

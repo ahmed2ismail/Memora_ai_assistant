@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Memora - Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#22333c",
+                    "on-primary-fixed": "#002113",
+                    "on-tertiary-fixed-variant": "#384953",
+                    "on-tertiary-fixed": "#0c1e26",
+                    "surface-container": "#171f33",
+                    "tertiary-container": "#1a2a33",
+                    "inverse-primary": "#006c49",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-primary-container": "#00a471",
+                    "surface-container-low": "#131b2e",
+                    "secondary-container": "#af8d11",
+                    "primary-fixed-dim": "#4edea3",
+                    "primary-container": "#002f1e",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed": "#241a00",
+                    "on-secondary-container": "#342800",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-tertiary-container": "#80929c",
+                    "surface-container-lowest": "#060e20",
+                    "surface-tint": "#4edea3",
+                    "on-secondary": "#3c2f00",
+                    "surface-dim": "#0b1326",
+                    "surface-container-highest": "#2d3449",
+                    "on-primary": "#003824",
+                    "on-surface": "#dae2fd",
+                    "background": "#0b1326",
+                    "surface-container-high": "#222a3d",
+                    "on-surface-variant": "#c2c7ce",
+                    "secondary-fixed": "#ffe088",
+                    "surface-bright": "#31394d",
+                    "tertiary": "#b7c9d5",
+                    "primary": "#4edea3",
+                    "secondary": "#e9c349",
+                    "on-error-container": "#ffdad6",
+                    "inverse-surface": "#dae2fd",
+                    "outline": "#8c9197",
+                    "on-secondary-fixed-variant": "#574500",
+                    "outline-variant": "#42474d",
+                    "tertiary-fixed": "#d3e5f1",
+                    "on-background": "#dae2fd",
+                    "error": "#ffb4ab",
+                    "on-error": "#690005",
+                    "surface": "#0b1326",
+                    "inverse-on-surface": "#283044",
+                    "primary-fixed": "#6ffbbe",
+                    "surface-variant": "#2d3449",
+                    "tertiary-fixed-dim": "#b7c9d5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(45, 52, 73, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(78, 222, 163, 0.15);
+        }
+        .refractive-gradient {
+            background: linear-gradient(135deg, #4edea3 0%, #00a471 100%);
+        }
+        .islamic-pattern {
+            mask-image: url('https://www.transparenttextures.com/patterns/cubes.png'); /* Placeholder pattern feel */
+            opacity: 0.05;
+        }
+        .glow-orb {
+            box-shadow: 0 0 80px 20px rgba(78, 222, 163, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-dim text-on-surface font-body selection:bg-primary/30 min-h-screen overflow-x-hidden">
+<!-- Background Accents -->
+<div class="fixed inset-0 pointer-events-none z-0">
+<div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/5 rounded-full blur-[100px]"></div>
+<div class="absolute inset-0 islamic-pattern bg-white"></div>
+</div>
+<!-- Navigation Header (Filtered for Transactional suppression, but using Brand for Logo) -->
+<header class="relative z-10 flex justify-center py-8">
+<div class="text-2xl font-headline font-extrabold tracking-tighter text-primary">Memora</div>
+</header>
+<main class="relative z-10 max-w-screen-xl mx-auto px-6 pb-24">
+<!-- Screen 1: Welcome -->
+<section class="flex flex-col items-center justify-center min-h-[707px] text-center space-y-12" id="screen-1">
+<div class="relative">
+<!-- Large Glowing AI Orb -->
+<div class="w-64 h-64 md:w-80 md:h-80 rounded-full refractive-gradient glow-orb flex items-center justify-center overflow-hidden relative group">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-80" data-alt="Abstract ethereal 3D sphere with glowing emerald filaments and geometric star light patterns inside deep teal glass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1NFII7dvnbbWwIeaXmz35vR1eqX4WWECqUZ8mhYQkwTDtAOd-2xmMal-XwwafH7BRyhEr1l1WCs44Xu7M_VRUC50Mzw9gZGjqIjDivvi__ZvKehgfVTusaYwaDUVQBiA15QR4YGeefwWM1Jcz1oEMs8Bn5ydtF0PcJ7IjujFCqwTLVXyIclbqpZQowksbQ8zDMN0m05t0oGqTpKLfTHaUYNBUS9mxopydEJOvrEwklB62QoFVvLJQd5TaBAq8VFyPTTplsbBYI6nU"/>
+<span class="material-symbols-outlined text-6xl text-white drop-shadow-lg" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<!-- Islamic Geometric Pins -->
+<div class="absolute -top-4 -right-4 w-12 h-12 glass-card rounded-full flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-xl">star</span>
+</div>
+</div>
+<div class="space-y-4 max-w-2xl">
+<h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tight leading-none">
+                    Remember everything <span class="text-primary italic">effortlessly</span>.
+                </h1>
+<p class="text-on-surface-variant text-lg md:text-xl font-light">
+                    Your digital sanctuary for memories, powered by an AI that understands the rhythm of your life.
+                </p>
+</div>
+<button class="refractive-group relative px-10 py-5 rounded-full refractive-gradient text-on-primary font-bold text-lg shadow-xl hover:scale-105 transition-all duration-300">
+                Begin Your Journey
+            </button>
+</section>
+<!-- Divider with Geometric Pin -->
+<div class="flex items-center justify-center py-20 opacity-20">
+<div class="h-[1px] w-32 bg-outline"></div>
+<span class="material-symbols-outlined mx-4 text-secondary">emergency_home</span>
+<div class="h-[1px] w-32 bg-outline"></div>
+</div>
+<!-- Screen 2: Smart Reminders (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center" id="screen-2">
+<div class="md:col-span-5 space-y-6">
+<span class="inline-block px-4 py-1 glass-card rounded-full text-secondary text-sm font-medium tracking-widest uppercase">Intelligent</span>
+<h2 class="font-headline text-4xl md:text-5xl font-bold leading-tight">Smart reminders powered by AI</h2>
+<p class="text-on-surface-variant leading-relaxed">
+                    More than just alerts. Memora predicts when you need information most, surfacing memories and tasks before you even have to ask.
+                </p>
+<div class="flex gap-4 pt-4">
+<div class="p-3 glass-card rounded-xl">
+<span class="material-symbols-outlined text-primary">schedule</span>
+</div>
+<div class="p-3 glass-card rounded-xl">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-7 relative">
+<div class="glass-card rounded-[2.5rem] p-8 overflow-hidden">
+<div class="aspect-video rounded-2xl overflow-hidden mb-6">
+<img class="w-full h-full object-cover" data-alt="Close up of a premium smartphone interface showing translucent notifications with gold and emerald highlights against a dark blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5uy_GR31cEN7ghHOE0JMm78ixr8Z6nOsRLL1uHbjlYBT1amBh77W_OYSnK8o2Ugq6e1uufTSTnEvhoT7adw5yiYS77dI3uAN1oXVS7RWYNSJRge8-EUQwMKiR2t0g2cqEKYeoZIfgXTakTqr28ahF_6WkVG6cWB_U1WSAbggRytnVPenoGaY5mO013QNEwiE42zbtNAEgEsAtOk-YMG_dtYKWKWaXhHckdp_stcrz-Mz4iw769htZTjQ0bPOo5_A5TqNdh0AePqe1"/>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-2xl">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary p-2 glass-card rounded-lg" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<div>
+<p class="font-bold text-on-surface">Medication Check</p>
+<p class="text-sm text-on-surface-variant">Based on your morning routine</p>
+</div>
+</div>
+<span class="text-xs font-mono text-primary">JUST NOW</span>
+</div>
+</div>
+<!-- Asymmetric Floating Element -->
+<div class="absolute -bottom-8 -left-8 glass-card p-6 rounded-3xl hidden md:block border-primary/20">
+<span class="material-symbols-outlined text-primary text-4xl mb-2">flare</span>
+<p class="text-xs font-bold text-primary tracking-widest">CONTEXT AWARE</p>
+</div>
+</div>
+</section>
+<!-- Screen 3: Personalized Feature Highlight -->
+<section class="mt-40 grid grid-cols-1 md:grid-cols-2 gap-16 items-center" id="screen-3">
+<div class="relative order-2 md:order-1">
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-card rounded-3xl p-4 aspect-square flex flex-col justify-end space-y-2 border-primary/10">
+<span class="material-symbols-outlined text-primary text-3xl">face_6</span>
+<p class="font-bold">Faces</p>
+</div>
+<div class="glass-card rounded-3xl p-4 aspect-square flex flex-col justify-end space-y-2 translate-y-8 border-secondary/10">
+<span class="material-symbols-outlined text-secondary text-3xl">history_edu</span>
+<p class="font-bold">Journals</p>
+</div>
+<div class="glass-card rounded-3xl p-4 aspect-square flex flex-col justify-end space-y-2 border-secondary/10">
+<span class="material-symbols-outlined text-secondary text-3xl">favorite</span>
+<p class="font-bold">Health</p>
+</div>
+<div class="glass-card rounded-3xl p-4 aspect-square flex flex-col justify-end space-y-2 translate-y-8 border-primary/10">
+<span class="material-symbols-outlined text-primary text-3xl">cloud</span>
+<p class="font-bold">Secure Sync</p>
+</div>
+</div>
+</div>
+<div class="space-y-6 order-1 md:order-2">
+<h2 class="font-headline text-4xl md:text-6xl font-bold leading-tight">Personalized for your lifestyle</h2>
+<p class="text-on-surface-variant text-lg">
+                    Whether you are capturing lectures, managing health challenges, or documenting your family history, Memora adapts its interface and algorithms to your unique cognitive needs.
+                </p>
+<ul class="space-y-4 pt-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Adaptive cognitive assistance</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>End-to-end encrypted storage</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- Screen 4: User Selection (Selection Shell) -->
+<section class="mt-40 mb-20 space-y-12" id="screen-4">
+<div class="text-center space-y-4">
+<h2 class="font-headline text-4xl md:text-5xl font-extrabold">Who are you?</h2>
+<p class="text-on-surface-variant">We tailor your experience based on your journey.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1: Alzheimer Patient -->
+<div class="glass-card rounded-[2.5rem] p-8 group hover:scale-[1.02] transition-all duration-500 cursor-pointer flex flex-col items-center text-center space-y-6 border-b-4 border-transparent hover:border-primary">
+<div class="w-20 h-20 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+</div>
+<div class="space-y-2">
+<h3 class="text-2xl font-headline font-bold">Alzheimer Patient</h3>
+<p class="text-on-surface-variant text-sm px-4 leading-relaxed">Focused on routine, family recognition, and critical daily safety reminders.</p>
+</div>
+<button class="w-full py-3 rounded-2xl bg-surface-container-high font-bold group-hover:bg-primary group-hover:text-on-primary transition-all">Select Profile</button>
+</div>
+<!-- Card 2: Student -->
+<div class="glass-card rounded-[2.5rem] p-8 group hover:scale-[1.02] transition-all duration-500 cursor-pointer flex flex-col items-center text-center space-y-6 border-b-4 border-transparent hover:border-secondary">
+<div class="w-20 h-20 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
+<span class="material-symbols-outlined text-4xl text-secondary" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div class="space-y-2">
+<h3 class="text-2xl font-headline font-bold">Student</h3>
+<p class="text-on-surface-variant text-sm px-4 leading-relaxed">Optimized for rapid information retrieval, study schedules, and knowledge mapping.</p>
+</div>
+<button class="w-full py-3 rounded-2xl bg-surface-container-high font-bold group-hover:bg-secondary group-hover:text-on-secondary transition-all">Select Profile</button>
+</div>
+<!-- Card 3: General User -->
+<div class="glass-card rounded-[2.5rem] p-8 group hover:scale-[1.02] transition-all duration-500 cursor-pointer flex flex-col items-center text-center space-y-6 border-b-4 border-transparent hover:border-white">
+<div class="w-20 h-20 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-4xl text-on-surface" style="font-variation-settings: 'FILL' 1;">person_pin</span>
+</div>
+<div class="space-y-2">
+<h3 class="text-2xl font-headline font-bold">General User</h3>
+<p class="text-on-surface-variant text-sm px-4 leading-relaxed">Versatile memory assistance for journaling life, events, and personal productivity.</p>
+</div>
+<button class="w-full py-3 rounded-2xl bg-surface-container-high font-bold group-hover:bg-white group-hover:text-surface-dim transition-all">Select Profile</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Final Footer Accent -->
+<footer class="relative z-10 py-12 text-center border-t border-outline/10">
+<div class="flex items-center justify-center gap-2 text-on-surface-variant opacity-50 mb-4">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<span class="text-xs tracking-widest uppercase">Privacy First Memory Network</span>
+</div>
+<p class="text-sm font-light text-outline">© 2024 Memora. Designed with serenity in mind.</p>
+</footer>
+</body></html>
