@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_styles.dart';
 import '../../../../core/widgets/glass_card.dart';
+import '../../../../core/widgets/adaptive_layout_widget.dart';
 import '../../../../di/injection_container.dart';
 import 'package:go_router/go_router.dart';
 import '../../domain/entities/student_models.dart';
@@ -33,37 +34,35 @@ class StudentDashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
-              child: BlocBuilder<StudentDashboardCubit, StudentDashboardState>(
-                builder: (context, state) {
-                  if (state is StudentDashboardLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is StudentDashboardLoaded) {
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildHeader(context, state.hoursFocused),
-                        const SizedBox(height: 32),
-                        _buildTimeline(context, state.timelineItems),
-                        const SizedBox(height: 32),
-                        _buildInsightsAndMetrics(context, state.metrics),
-                      ],
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
+    return AdaptiveLayoutWidget(
+      mobile: (context, constraints) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
+            child: BlocBuilder<StudentDashboardCubit, StudentDashboardState>(
+              builder: (context, state) {
+                if (state is StudentDashboardLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is StudentDashboardLoaded) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildHeader(context, state.hoursFocused),
+                      const SizedBox(height: 32),
+                      _buildTimeline(context, state.timelineItems),
+                      const SizedBox(height: 32),
+                      _buildInsightsAndMetrics(context, state.metrics),
+                    ],
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -77,23 +76,31 @@ class StudentDashboardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "DEEP WORK",
-                style: AppStyles.custom(
-                  context,
-                  color: AppColors.primary,
-                  fontSize: 10,
-                  weight: FontWeight.bold,
-                  letterSpacing: 2,
+          Flexible(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "DEEP WORK",
+                  style: AppStyles.custom(
+                    context,
+                    color: AppColors.primary,
+                    fontSize: 10,
+                    weight: FontWeight.bold,
+                    letterSpacing: 2,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text("Cognitive Flow", style: AppStyles.headline(context, fontSize: 36)),
-            ],
+                const SizedBox(height: 4),
+                Text(
+                  "Cognitive Flow", 
+                  style: AppStyles.headline(context, fontSize: 36),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
+          const SizedBox(width: 12),
           GestureDetector(
             onTap: () => GoRouter.of(context).push('/dashboard/student-details/today'),
             child: Container(

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_styles.dart';
 import '../../../../core/widgets/glass_card.dart';
+import '../../../../core/widgets/adaptive_layout_widget.dart';
 import '../../../../di/injection_container.dart';
 import 'package:go_router/go_router.dart';
 import '../../domain/entities/alzheimer_models.dart';
@@ -26,46 +27,44 @@ class AlzheimerDashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 120, bottom: 120, left: 24, right: 24),
-              child: BlocBuilder<AlzheimerDashboardCubit, AlzheimerDashboardState>(
-                builder: (context, state) {
-                  if (state is AlzheimerDashboardLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is AlzheimerDashboardLoaded) {
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildHeader(context, state),
-                        const SizedBox(height: 32),
-                        _buildMassiveInteractionZone(context),
-                        const SizedBox(height: 16),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(child: _buildMedicationBlock(context, state.nextMedication)),
-                            const SizedBox(width: 16),
-                            Expanded(child: _buildEmergencyBlock(context)),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-                        _buildAiAssistantWidget(context, state.aiPrompt),
-                      ],
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
+    return AdaptiveLayoutWidget(
+      mobile: (context, constraints) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 120, bottom: 120, left: 24, right: 24),
+            child: BlocBuilder<AlzheimerDashboardCubit, AlzheimerDashboardState>(
+              builder: (context, state) {
+                if (state is AlzheimerDashboardLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is AlzheimerDashboardLoaded) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildHeader(context, state),
+                      const SizedBox(height: 32),
+                      _buildMassiveInteractionZone(context),
+                      const SizedBox(height: 16),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(child: _buildMedicationBlock(context, state.nextMedication)),
+                          const SizedBox(width: 16),
+                          Expanded(child: _buildEmergencyBlock(context)),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+                      _buildAiAssistantWidget(context, state.aiPrompt),
+                    ],
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -84,9 +83,17 @@ class AlzheimerDashboardView extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Text("Good morning, ${state.patientName}.", style: AppStyles.headline(context, fontSize: 36)),
+        Text(
+          "Good morning, ${state.patientName}.", 
+          style: AppStyles.headline(context, fontSize: 36),
+          overflow: TextOverflow.visible,
+        ),
         const SizedBox(height: 8),
-        Text(state.dateAndWeather, style: AppStyles.body16(context)),
+        Text(
+          state.dateAndWeather, 
+          style: AppStyles.body16(context),
+          overflow: TextOverflow.visible,
+        ),
       ],
     );
   }
@@ -100,28 +107,42 @@ class AlzheimerDashboardView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.2),
-                    shape: BoxShape.circle,
+            Expanded(
+              child: Row(
+                children: [
+                  Container(
+                    width: 64,
+                    height: 64,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.person_search, color: AppColors.primary, size: 36),
                   ),
-                  child: const Icon(Icons.person_search, color: AppColors.primary, size: 36),
-                ),
-                const SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Scan Person", style: AppStyles.body24(context)),
-                    const SizedBox(height: 4),
-                    Text("Point camera to remember a face", style: AppStyles.body14(context)),
-                  ],
-                ),
-              ],
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Scan Person", 
+                          style: AppStyles.body24(context),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "Point camera to remember a face", 
+                          style: AppStyles.body14(context),
+                          overflow: TextOverflow.visible,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
+            const SizedBox(width: 12),
             const Icon(Icons.arrow_forward_ios, color: AppColors.primary, size: 32),
           ],
         ),

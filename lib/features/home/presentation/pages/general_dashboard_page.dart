@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_styles.dart';
 import '../../../../core/widgets/glass_card.dart';
+import '../../../../core/widgets/adaptive_layout_widget.dart';
 import '../../../../di/injection_container.dart';
 import 'package:go_router/go_router.dart';
 import '../../domain/entities/general_models.dart';
@@ -33,39 +34,37 @@ class GeneralDashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
-              child: BlocBuilder<GeneralDashboardCubit, GeneralDashboardState>(
-                builder: (context, state) {
-                  if (state is GeneralDashboardLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is GeneralDashboardLoaded) {
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildHeader(context),
-                        const SizedBox(height: 32),
-                        _buildPriorityTasks(context, state.tasks),
-                        const SizedBox(height: 24),
-                        _buildHabitTracker(context, state.habits),
-                        const SizedBox(height: 24),
-                        _buildReflection(context),
-                      ],
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
+    return AdaptiveLayoutWidget(
+      mobile: (context, constraints) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
+            child: BlocBuilder<GeneralDashboardCubit, GeneralDashboardState>(
+              builder: (context, state) {
+                if (state is GeneralDashboardLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is GeneralDashboardLoaded) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildHeader(context),
+                      const SizedBox(height: 32),
+                      _buildPriorityTasks(context, state.tasks),
+                      const SizedBox(height: 24),
+                      _buildHabitTracker(context, state.habits),
+                      const SizedBox(height: 24),
+                      _buildReflection(context),
+                    ],
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -73,8 +72,16 @@ class GeneralDashboardView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Daily Logistics", style: AppStyles.headline(context, fontSize: 36)),
+        Flexible(
+          child: Text(
+            "Daily Logistics", 
+            style: AppStyles.headline(context, fontSize: 36),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        const SizedBox(width: 12),
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
