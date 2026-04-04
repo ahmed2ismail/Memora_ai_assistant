@@ -13,80 +13,106 @@ class StudentPomodoroOrb extends StatelessWidget {
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
         color: AppColors.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(40),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.1)),
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withValues(alpha: 0.1),
+            blurRadius: 40,
+            spreadRadius: 10,
+          ),
+        ],
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Focus Timer", style: AppStyles.body24(context)),
-              const Icon(Icons.settings, color: AppColors.onSurfaceVariant),
-            ],
-          ),
-          const SizedBox(height: 48),
           Stack(
             alignment: Alignment.center,
             children: [
               SizedBox(
-                width: 240,
-                height: 240,
+                width: 200,
+                height: 200,
                 child: CircularProgressIndicator(
                   value: 0.75,
-                  strokeWidth: 12,
-                  backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                  strokeWidth: 8,
+                  backgroundColor: AppColors.surfaceContainerHighest,
                   valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
-                  strokeCap: StrokeCap.round,
                 ),
               ),
               Column(
-                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("25:00", style: AppStyles.headline(context, fontSize: 64)),
-                  const SizedBox(height: 8),
-                  Text("POMODORO",
-                      style: AppStyles.custom(context,
-                          color: AppColors.primary,
-                          fontSize: 12,
-                          weight: FontWeight.bold,
-                          letterSpacing: 2)),
+                  Text("25:00",
+                      style: AppStyles.headline(context, fontSize: 48)
+                          .copyWith(letterSpacing: -2)),
+                  Text("FOCUSING",
+                      style: AppStyles.body12(context,
+                              color: AppColors.primary, weight: FontWeight.bold)
+                          .copyWith(letterSpacing: 2)),
                 ],
               ),
             ],
           ),
           const SizedBox(height: 48),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  ),
-                  onPressed: () {},
-                  child: const Text("RESET"),
-                ),
+              _buildOrbButton(
+                context,
+                icon: Icons.refresh,
+                label: "RESET",
+                onPressed: () {
+                  context
+                      .read<StudentDetailCubit>()
+                      .triggerAction("RESETTING TIMER...");
+                },
               ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  ),
-                  onPressed: () {
-                    context.read<StudentDetailCubit>().triggerAction("STARTING POMODORO...");
-                  },
-                  child: const Text("START"),
-                ),
+              const SizedBox(width: 24),
+              _buildOrbButton(
+                context,
+                icon: Icons.pause,
+                label: "PAUSE",
+                isPrimary: true,
+                onPressed: () {
+                  context
+                      .read<StudentDetailCubit>()
+                      .triggerAction("PAUSING SESSION...");
+                },
               ),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildOrbButton(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onPressed,
+    bool isPrimary = false,
+  }) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: onPressed,
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: isPrimary ? AppColors.primary : AppColors.surfaceContainerHighest,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              color: isPrimary ? const Color(0xFF003824) : AppColors.onSurface,
+              size: 24,
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(label,
+            style: AppStyles.body12(context,
+                color: AppColors.onSurfaceVariant, weight: FontWeight.bold)),
+      ],
     );
   }
 }
