@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import '../../../../core/errors/failures.dart';
 import '../repositories/ai_repository.dart';
 
 /// Application-level use case for sending a message to the AI assistant.
@@ -11,7 +13,9 @@ class SendMessageUseCase {
 
   /// Executes the use case with the given [message], [conversationHistory],
   /// and optional serialized [dashboardContext].
-  Future<String> call({
+  ///
+  /// Returns [Right(String)] on success, or [Left(Failure)] on error.
+  Future<Either<Failure, String>> call({
     required String message,
     required List<Map<String, String>> conversationHistory,
     String? dashboardContext,

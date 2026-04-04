@@ -45,15 +45,18 @@ class MainScaffold extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: const BoxDecoration(
-                    color: AppColors.surfaceContainerHighest,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Center(
-                    child: Icon(Icons.settings, color: AppColors.primary, size: 20),
+                GestureDetector(
+                  onTap: () => _onTap(context, 4),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: AppColors.surfaceContainerHighest,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Center(
+                      child: Icon(Icons.settings, color: AppColors.primary, size: 20),
+                    ),
                   ),
                 ),
               ],

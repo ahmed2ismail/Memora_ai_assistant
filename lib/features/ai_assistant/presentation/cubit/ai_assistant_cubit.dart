@@ -80,45 +80,48 @@ class AiAssistantCubit extends Cubit<AiAssistantState> {
       contexts: state.contexts,
     ));
 
-    try {
-      // Build conversation history for the API
-      final conversationHistory = history.map((msg) => {
-        'role': msg.isUser ? 'user' : 'model',
-        'text': msg.text,
-      }).toList();
+    // Build conversation history for the API
+    final conversationHistory = history.map((msg) => {
+      'role': msg.isUser ? 'user' : 'model',
+      'text': msg.text,
+    }).toList();
 
-      final aiResponseText = await _sendMessageUseCase(
-        message: text,
-        conversationHistory: conversationHistory,
-        dashboardContext: _buildDashboardContext(),
-      );
+    final result = await _sendMessageUseCase(
+      message: text,
+      conversationHistory: conversationHistory,
+      dashboardContext: _buildDashboardContext(),
+    );
 
-      final aiMessage = ChatMessage(
-        text: aiResponseText,
-        isUser: false,
-        timestamp: DateTime.now(),
-      );
+    result.fold(
+      (failure) {
+        // On failure, show the user-friendly error message as an AI chat bubble
+        final errorMessage = ChatMessage(
+          text: failure.message,
+          isUser: false,
+          timestamp: DateTime.now(),
+        );
 
-      emit(AiAssistantInitial(
-        chatHistory: List.from(history)..add(aiMessage),
-        suggestions: state.suggestions,
-        contexts: state.contexts,
-      ));
-    } catch (e) {
-      // On error, emit an error message as an AI bubble so the user sees feedback
-      final errorMessage = ChatMessage(
-        text: "I'm having trouble connecting right now. Please check your API key and internet connection and try again.",
-        isUser: false,
-        timestamp: DateTime.now(),
-      );
+        emit(AiAssistantError(
+          chatHistory: List.from(history)..add(errorMessage),
+          suggestions: state.suggestions,
+          contexts: state.contexts,
+          errorMessage: failure.message,
+        ));
+      },
+      (aiResponseText) {
+        final aiMessage = ChatMessage(
+          text: aiResponseText,
+          isUser: false,
+          timestamp: DateTime.now(),
+        );
 
-      emit(AiAssistantError(
-        chatHistory: List.from(history)..add(errorMessage),
-        suggestions: state.suggestions,
-        contexts: state.contexts,
-        errorMessage: e.toString(),
-      ));
-    }
+        emit(AiAssistantInitial(
+          chatHistory: List.from(history)..add(aiMessage),
+          suggestions: state.suggestions,
+          contexts: state.contexts,
+        ));
+      },
+    );
   }
 
   void applySuggestion(String text) {
