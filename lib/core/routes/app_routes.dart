@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/main_navigation/presentation/pages/main_scaffold.dart';
 import '../../features/onboarding/presentation/pages/onboarding_page.dart';
-import '../../features/home/presentation/pages/student_dashboard_page.dart';
+import '../../features/home/presentation/pages/alzheimer_dashboard_page.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorDashboard = GlobalKey<NavigatorState>(debugLabel: 'shell_dashboard');
@@ -30,7 +30,7 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/dashboard',
-              builder: (context, state) => const StudentDashboardPage(),
+              builder: (context, state) => const AlzheimerDashboardPage(),
             ),
           ],
         ),

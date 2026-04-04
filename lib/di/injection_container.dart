@@ -10,6 +10,7 @@ import '../features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import '../features/home/presentation/cubit/general_dashboard_cubit.dart';
 
 import '../features/home/presentation/cubit/student_dashboard_cubit.dart';
+import '../features/home/presentation/cubit/alzheimer_dashboard_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -22,6 +23,7 @@ Future<void> initDI() async {
 
   sl.registerFactory(() => GeneralDashboardCubit());
   sl.registerFactory(() => StudentDashboardCubit());
+  sl.registerFactory(() => AlzheimerDashboardCubit());
 
   sl.registerLazySingleton(() => CacheFirstTimer(sl()));
   sl.registerLazySingleton(() => CheckIfUserIsFirstTimer(sl()));
