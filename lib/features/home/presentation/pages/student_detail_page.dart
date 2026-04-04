@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../core/widgets/glass_card.dart';
 import '../../../../di/injection_container.dart';
 import '../../domain/entities/student_models.dart';
@@ -79,11 +80,12 @@ class StudentDetailView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "NEXT AWAKENING",
-                      style: TextStyle(
+                      style: AppStyles.custom(
+                        context,
                         color: AppColors.secondary,
-                        fontWeight: FontWeight.bold,
+                        weight: FontWeight.bold,
                         fontSize: 10,
                         letterSpacing: 2.0,
                       ),
@@ -95,19 +97,19 @@ class StudentDetailView extends StatelessWidget {
                       children: [
                         Text(
                           state.nextAwakeningTime,
-                          style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 48, letterSpacing: -1),
+                          style: AppStyles.custom(context, weight: FontWeight.w800, fontSize: 48, letterSpacing: -1),
                         ),
                         const SizedBox(width: 8),
                         Text(
                           state.nextAwakeningPeriod,
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: AppColors.onSurfaceVariant),
+                          style: AppStyles.custom(context, weight: FontWeight.bold, fontSize: 20, color: AppColors.onSurfaceVariant),
                         ),
                       ],
                     ),
                     const SizedBox(height: 12),
                     Text(
                       "Memora has calculated your optimal REM cycle. Rise with the light.",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.onSurfaceVariant, height: 1.5),
+                      style: AppStyles.body12(context).copyWith(height: 1.5),
                     )
                   ],
                 ),
@@ -129,10 +131,10 @@ class StudentDetailView extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                           child: Row(
-                            children: const [
-                              Icon(Icons.alarm_on, color: AppColors.onPrimary, size: 20),
-                              SizedBox(width: 8),
-                              Text("Active", style: TextStyle(color: AppColors.onPrimary, fontWeight: FontWeight.bold)),
+                            children: [
+                              const Icon(Icons.alarm_on, color: AppColors.onPrimary, size: 20),
+                              const SizedBox(width: 8),
+                              Text("Active", style: AppStyles.body14(context, color: AppColors.onPrimary, weight: FontWeight.bold)),
                             ],
                           ),
                         ),
@@ -151,7 +153,7 @@ class StudentDetailView extends StatelessWidget {
                           border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: const Text("Dismiss Anti-Snooze", style: TextStyle(color: AppColors.primary, fontSize: 12, fontWeight: FontWeight.bold)),
+                        child: Text("Dismiss Anti-Snooze", style: AppStyles.body12(context, color: AppColors.primary, weight: FontWeight.bold)),
                       ),
                     ),
                   ),
@@ -203,7 +205,7 @@ class StudentDetailView extends StatelessWidget {
             height: 240,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 2, style: BorderStyle.none), // Using dashed theoretically, simulated via solid here for simplicity
+              border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 2, style: BorderStyle.none),
             ),
             child: Stack(
               alignment: Alignment.center,
@@ -229,9 +231,9 @@ class StudentDetailView extends StatelessWidget {
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text("25:00", style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: AppColors.onPrimary)),
-                      Text("FOCUS FLOW", style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.onPrimary, letterSpacing: 2)),
+                    children: [
+                      Text("25:00", style: AppStyles.custom(context, fontSize: 48, weight: FontWeight.w900, color: AppColors.onPrimary)),
+                      Text("FOCUS FLOW", style: AppStyles.custom(context, fontSize: 10, weight: FontWeight.bold, color: AppColors.onPrimary, letterSpacing: 2)),
                     ],
                   ),
                 )
@@ -251,7 +253,7 @@ class StudentDetailView extends StatelessWidget {
                     border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                   ),
                   alignment: Alignment.center,
-                  child: const Text("Settings", style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text("Settings", style: AppStyles.body16(context)),
                 ),
               ),
               const SizedBox(width: 16),
@@ -261,7 +263,7 @@ class StudentDetailView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   decoration: BoxDecoration(color: AppColors.onSurface, borderRadius: BorderRadius.circular(20)),
                   alignment: Alignment.center,
-                  child: const Text("Start Session", style: TextStyle(color: AppColors.surfaceDim, fontWeight: FontWeight.bold)),
+                  child: Text("Start Session", style: AppStyles.body16(context, color: AppColors.surfaceDim)),
                 ),
               )
             ],
@@ -269,10 +271,10 @@ class StudentDetailView extends StatelessWidget {
           const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.auto_awesome, size: 16, color: AppColors.onSurfaceVariant),
-              SizedBox(width: 8),
-              Text("Daily Goal: 4 of 8 sessions", style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 12)),
+            children: [
+              const Icon(Icons.auto_awesome, size: 16, color: AppColors.onSurfaceVariant),
+              const SizedBox(width: 8),
+              Text("Daily Goal: 4 of 8 sessions", style: AppStyles.body12(context)),
             ],
           )
         ],
@@ -291,11 +293,11 @@ class StudentDetailView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Daily Timeline", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  Text("Daily Timeline", style: AppStyles.body16(context)),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
-                    child: const Text("3 Left", style: TextStyle(color: AppColors.primary, fontSize: 10, fontWeight: FontWeight.bold)),
+                    child: Text("3 Left", style: AppStyles.body12(context, color: AppColors.primary, weight: FontWeight.bold)),
                   )
                 ],
               ),
@@ -309,7 +311,7 @@ class StudentDetailView extends StatelessWidget {
                     child: Container(width: 1, color: AppColors.outlineVariant.withValues(alpha: 0.3)),
                   ),
                   Column(
-                    children: events.map((e) => _buildTimelineItem(e)).toList(),
+                    children: events.map((e) => _buildTimelineItem(context, e)).toList(),
                   )
                 ],
               )
@@ -329,12 +331,12 @@ class StudentDetailView extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text("AI INSIGHT", style: TextStyle(color: AppColors.primary, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-                  SizedBox(height: 8),
+                children: [
+                  Text("AI INSIGHT", style: AppStyles.custom(context, color: AppColors.primary, fontSize: 10, weight: FontWeight.bold, letterSpacing: 1.5)),
+                  const SizedBox(height: 8),
                   Text(
                     "\"You tend to be 15% more productive after short walks. Consider a 5-min break before your next lecture.\"",
-                    style: TextStyle(fontStyle: FontStyle.italic, height: 1.5),
+                    style: AppStyles.body14(context, color: AppColors.onSurface).copyWith(fontStyle: FontStyle.italic, height: 1.5),
                   )
                 ],
               )
@@ -345,7 +347,7 @@ class StudentDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildTimelineItem(TimelineEventItem event) {
+  Widget _buildTimelineItem(BuildContext context, TimelineEventItem event) {
     Color dotColor;
     switch (event.dotColorMode) {
       case "primary": dotColor = AppColors.primary; break;
@@ -377,9 +379,9 @@ class StudentDetailView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("${event.timeLabel} • ${event.category}", style: TextStyle(color: dotColor, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.0)),
+                Text("${event.timeLabel} • ${event.category}", style: AppStyles.custom(context, color: dotColor, fontSize: 10, weight: FontWeight.bold, letterSpacing: 1.0)),
                 const SizedBox(height: 4),
-                Text(event.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: event.dotColorMode == 'outline' ? AppColors.onSurface.withValues(alpha: 0.7) : AppColors.onSurface)),
+                Text(event.title, style: AppStyles.body14(context, color: event.dotColorMode == 'outline' ? AppColors.onSurface.withValues(alpha: 0.7) : AppColors.onSurface, weight: FontWeight.bold)),
                 if (event.subtitle.isNotEmpty || event.isHighPriority) ...[
                   const SizedBox(height: 6),
                   Row(
@@ -388,14 +390,14 @@ class StudentDetailView extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(color: AppColors.surfaceContainerHighest, borderRadius: BorderRadius.circular(4)),
-                          child: Text(event.subtitle, style: const TextStyle(fontSize: 10, color: AppColors.onSurfaceVariant)),
+                          child: Text(event.subtitle, style: AppStyles.body12(context)),
                         ),
                       if (event.subtitle.isNotEmpty && event.isHighPriority) const SizedBox(width: 6),
                       if (event.isHighPriority)
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(color: AppColors.errorContainer.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(4)),
-                          child: const Text("High Priority", style: TextStyle(fontSize: 10, color: AppColors.error)),
+                          child: Text("High Priority", style: AppStyles.body12(context, color: AppColors.error)),
                         )
                     ],
                   )
@@ -436,7 +438,7 @@ class StudentDetailView extends StatelessWidget {
                 child: Icon(_getIcon(item.iconName), color: iconColor, size: 20),
               ),
               const SizedBox(width: 12),
-              Text(item.label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              Text(item.label, style: AppStyles.body14(context, weight: FontWeight.bold)),
             ],
           ),
         );

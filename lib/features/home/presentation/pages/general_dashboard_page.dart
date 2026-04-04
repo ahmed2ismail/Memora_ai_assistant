@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../core/widgets/glass_card.dart';
 import '../../../../di/injection_container.dart';
 import 'package:go_router/go_router.dart';
@@ -65,7 +66,7 @@ class GeneralDashboardView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Daily Logistics", style: Theme.of(context).textTheme.headlineLarge),
+        Text("Daily Logistics", style: AppStyles.headline(context, fontSize: 36)),
         Row(
           children: [
             Container(
@@ -74,12 +75,11 @@ class GeneralDashboardView extends StatelessWidget {
                 color: AppColors.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Text("Today", style: TextStyle(color: AppColors.onSurfaceVariant)),
+              child: Text("Today", style: AppStyles.body14(context, color: AppColors.onSurfaceVariant)),
             ),
             const SizedBox(width: 8),
             GestureDetector(
               onTap: () => {
-                // Must import go_router to jump to details over the shell
                 GoRouter.of(context).push('/dashboard/details/today')
               },
               child: Container(
@@ -88,7 +88,7 @@ class GeneralDashboardView extends StatelessWidget {
                   color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const Text("Overview", style: TextStyle(color: AppColors.primary)),
+                child: Text("Overview", style: AppStyles.body14(context, color: AppColors.primary, weight: FontWeight.bold)),
               ),
             ),
           ],
@@ -105,8 +105,8 @@ class GeneralDashboardView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Priority Tasks", style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold, fontSize: 20)),
-              const Text("View All", style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
+              Text("Priority Tasks", style: AppStyles.body24(context)),
+              Text("View All", style: AppStyles.body14(context, color: AppColors.primary, weight: FontWeight.bold)),
             ],
           ),
           const SizedBox(height: 24),
@@ -139,14 +139,13 @@ class GeneralDashboardView extends StatelessWidget {
               children: [
                 Text(
                   task.title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    decoration: task.isCompleted ? TextDecoration.lineThrough : null,
+                  style: AppStyles.body16(
+                    context, 
                     color: task.isCompleted ? AppColors.onSurfaceVariant : AppColors.onSurface,
-                  ),
+                  ).copyWith(decoration: task.isCompleted ? TextDecoration.lineThrough : null),
                 ),
                 if (!task.isCompleted)
-                  Text(task.subtitle, style: Theme.of(context).textTheme.bodyMedium),
+                  Text(task.subtitle, style: AppStyles.body14(context)),
               ],
             ),
           ),
@@ -162,15 +161,15 @@ class GeneralDashboardView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Habit Tracker", style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold, fontSize: 20)),
+          Text("Habit Tracker", style: AppStyles.body24(context)),
           const SizedBox(height: 20),
-          ...habits.map((habit) => _buildHabitItem(habit)),
+          ...habits.map((habit) => _buildHabitItem(context, habit)),
         ],
       ),
     );
   }
 
-  Widget _buildHabitItem(HabitItem habit) {
+  Widget _buildHabitItem(BuildContext context, HabitItem habit) {
     final color = _fromHex(habit.colorHex);
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
@@ -180,8 +179,8 @@ class GeneralDashboardView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(habit.title.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              Text(habit.progressText, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12)),
+              Text(habit.title.toUpperCase(), style: AppStyles.body12(context, weight: FontWeight.bold, color: AppColors.onSurface)),
+              Text(habit.progressText, style: AppStyles.body12(context, weight: FontWeight.bold, color: color)),
             ],
           ),
           const SizedBox(height: 8),
@@ -227,8 +226,8 @@ class GeneralDashboardView extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Reflection", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-              Text("Last entry: 2 days ago", style: Theme.of(context).textTheme.bodyMedium),
+              Text("Reflection", style: AppStyles.body16(context)),
+              Text("Last entry: 2 days ago", style: AppStyles.body14(context)),
             ],
           ),
         ],

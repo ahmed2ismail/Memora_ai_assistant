@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../core/widgets/glass_card.dart';
 import '../../../../di/injection_container.dart';
 import '../../domain/entities/ai_entities.dart';
@@ -122,9 +123,9 @@ class _AiAssistantViewState extends State<AiAssistantView> {
           ),
         ),
         const SizedBox(height: 24),
-        Text("I'm listening, Alex.", style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w800, fontSize: 32)),
+        Text("I'm listening, Alex.", style: AppStyles.headline(context, weight: FontWeight.w800, fontSize: 32)),
         const SizedBox(height: 8),
-        Text("Tell me what you need to remember.", style: Theme.of(context).textTheme.bodyMedium),
+        Text("Tell me what you need to remember.", style: AppStyles.body14(context)),
       ],
     );
   }
@@ -149,7 +150,7 @@ class _AiAssistantViewState extends State<AiAssistantView> {
               children: [
                 Icon(_getIcon(suggestion.iconName), color: color, size: 24),
                 const SizedBox(height: 8),
-                Text(suggestion.text, style: const TextStyle(fontSize: 12, color: AppColors.onSurfaceVariant)),
+                Text(suggestion.text, style: AppStyles.body12(context, color: AppColors.onSurfaceVariant)),
               ],
             ),
           ),
@@ -161,7 +162,7 @@ class _AiAssistantViewState extends State<AiAssistantView> {
   Widget _buildChatHistory(BuildContext context, List<ChatMessage> history, bool isProcessing) {
     return Column(
       children: [
-        ...history.map((msg) => _buildChatBubble(msg)),
+        ...history.map((msg) => _buildChatBubble(context, msg)),
         if (isProcessing)
           Align(
             alignment: Alignment.centerLeft,
@@ -182,7 +183,7 @@ class _AiAssistantViewState extends State<AiAssistantView> {
     );
   }
 
-  Widget _buildChatBubble(ChatMessage msg) {
+  Widget _buildChatBubble(BuildContext context, ChatMessage msg) {
     return Align(
       alignment: msg.isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
@@ -201,10 +202,7 @@ class _AiAssistantViewState extends State<AiAssistantView> {
         ),
         child: Text(
           msg.text,
-          style: TextStyle(
-            color: msg.isUser ? AppColors.primary : AppColors.onSurface,
-            fontSize: 14,
-          ),
+          style: AppStyles.body14(context, color: msg.isUser ? AppColors.primary : AppColors.onSurface),
         ),
       ),
     );
@@ -222,19 +220,19 @@ class _AiAssistantViewState extends State<AiAssistantView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              Icon(Icons.add_circle, color: AppColors.secondary),
-              SizedBox(width: 8),
-              Text("Create Quick Reminder", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            children: [
+              const Icon(Icons.add_circle, color: AppColors.secondary),
+              const SizedBox(width: 8),
+              Text("Create Quick Reminder", style: AppStyles.body16(context, weight: FontWeight.bold).copyWith(fontSize: 18)),
             ],
           ),
           const SizedBox(height: 24),
           TextField(
             controller: _inputController,
-            style: const TextStyle(color: AppColors.onSurface),
+            style: AppStyles.body14(context, color: AppColors.onSurface),
             decoration: InputDecoration(
               hintText: "What should I remember?",
-              hintStyle: const TextStyle(color: AppColors.onSurfaceVariant),
+              hintStyle: AppStyles.body14(context, color: AppColors.onSurfaceVariant),
               filled: true,
               fillColor: AppColors.surface,
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
@@ -250,11 +248,11 @@ class _AiAssistantViewState extends State<AiAssistantView> {
           const SizedBox(height: 16),
           Row(
             children: [
-              Expanded(child: _buildActionButton(Icons.alarm, "Time")),
+              Expanded(child: _buildActionButton(context, Icons.alarm, "Time")),
               const SizedBox(width: 12),
-              Expanded(child: _buildActionButton(Icons.location_on, "Place")),
+              Expanded(child: _buildActionButton(context, Icons.location_on, "Place")),
               const SizedBox(width: 12),
-              Expanded(child: _buildActionButton(Icons.mic, "Voice")),
+              Expanded(child: _buildActionButton(context, Icons.mic, "Voice")),
             ],
           ),
           const SizedBox(height: 24),
@@ -276,9 +274,9 @@ class _AiAssistantViewState extends State<AiAssistantView> {
                       _inputController.clear();
                     }
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Center(child: Text("Save Memory", style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF003824)))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Center(child: Text("Save Memory", style: AppStyles.body14(context, color: const Color(0xFF003824), weight: FontWeight.bold))),
                   ),
                 ),
               ),
@@ -289,7 +287,7 @@ class _AiAssistantViewState extends State<AiAssistantView> {
     );
   }
 
-  Widget _buildActionButton(IconData icon, String label) {
+  Widget _buildActionButton(BuildContext context, IconData icon, String label) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
@@ -301,7 +299,7 @@ class _AiAssistantViewState extends State<AiAssistantView> {
         children: [
           Icon(icon, size: 16, color: AppColors.onSurface),
           const SizedBox(width: 8),
-          Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+          Text(label, style: AppStyles.body12(context, weight: FontWeight.bold)),
         ],
       ),
     );
@@ -311,7 +309,7 @@ class _AiAssistantViewState extends State<AiAssistantView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("SMART CONTEXT", style: TextStyle(color: AppColors.onSurfaceVariant, fontWeight: FontWeight.bold, fontSize: 10, letterSpacing: 2)),
+        Text("SMART CONTEXT", style: AppStyles.custom(context, color: AppColors.onSurfaceVariant, weight: FontWeight.bold, fontSize: 10, letterSpacing: 2)),
         const SizedBox(height: 16),
         ...contexts.map((ctx) => GlassCard(
           padding: const EdgeInsets.all(16),
@@ -328,9 +326,9 @@ class _AiAssistantViewState extends State<AiAssistantView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(ctx.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                    Text(ctx.title, style: AppStyles.body14(context, weight: FontWeight.bold)),
                     const SizedBox(height: 4),
-                    Text(ctx.description, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.onSurfaceVariant)),
+                    Text(ctx.description, style: AppStyles.body12(context, color: AppColors.onSurfaceVariant)),
                   ],
                 ),
               ),

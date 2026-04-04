@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/main_navigation/presentation/pages/main_scaffold.dart';
+import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/home/presentation/pages/alzheimer_dashboard_page.dart';
 import '../../features/home/presentation/pages/alzheimer_detail_page.dart';
 

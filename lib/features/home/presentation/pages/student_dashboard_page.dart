@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../core/widgets/glass_card.dart';
 import '../../../../di/injection_container.dart';
 import 'package:go_router/go_router.dart';
@@ -72,17 +73,18 @@ class StudentDashboardView extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "DEEP WORK",
-                style: TextStyle(
+                style: AppStyles.custom(
+                  context,
                   color: AppColors.primary,
                   fontSize: 10,
-                  fontWeight: FontWeight.bold,
+                  weight: FontWeight.bold,
                   letterSpacing: 2,
                 ),
               ),
               const SizedBox(height: 4),
-              Text("Cognitive Flow", style: Theme.of(context).textTheme.headlineLarge),
+              Text("Cognitive Flow", style: AppStyles.headline(context, fontSize: 36)),
             ],
           ),
           GestureDetector(
@@ -93,7 +95,7 @@ class StudentDashboardView extends StatelessWidget {
                 color: AppColors.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Text("Explore", style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 12)),
+              child: Text("Explore", style: AppStyles.body12(context, color: AppColors.primary, weight: FontWeight.bold)),
             ),
           )
         ],
@@ -108,8 +110,8 @@ class StudentDashboardView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Timeline", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-            Text("October 24", style: Theme.of(context).textTheme.bodyMedium),
+            Text("Timeline", style: AppStyles.custom(context, fontSize: 18, weight: FontWeight.bold)),
+            Text("October 24", style: AppStyles.body14(context)),
           ],
         ),
         const SizedBox(height: 24),
@@ -169,14 +171,14 @@ class StudentDashboardView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(item.timeRange, style: TextStyle(fontWeight: FontWeight.bold, color: dotColor, fontSize: 12)),
+                      Text(item.timeRange, style: AppStyles.body12(context, color: dotColor, weight: FontWeight.bold)),
                       if (item.isActive) const Icon(Icons.more_horiz, size: 16, color: AppColors.onSurfaceVariant),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text(item.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  Text(item.title, style: AppStyles.body16(context)),
                   const SizedBox(height: 4),
-                  Text(item.description, style: Theme.of(context).textTheme.bodyMedium),
+                  Text(item.description, style: AppStyles.body14(context)),
                 ],
               ),
             ),
@@ -192,7 +194,7 @@ class StudentDashboardView extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [AppColors.surfaceContainerHighest, AppColors.surfaceContainerLow],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -206,13 +208,13 @@ class StudentDashboardView extends StatelessWidget {
                 children: [
                   const Icon(Icons.auto_awesome, color: AppColors.secondary, size: 20),
                   const SizedBox(width: 12),
-                  const Text("Smart Insight", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  Text("Smart Insight", style: AppStyles.body16(context)),
                 ],
               ),
               const SizedBox(height: 16),
               Text(
                 metrics.smartInsightMessage,
-                style: const TextStyle(fontSize: 16, height: 1.5, color: AppColors.onSurface),
+                style: AppStyles.custom(context, fontSize: 16, color: AppColors.onSurface).copyWith(height: 1.5),
               ),
               const SizedBox(height: 24),
               Container(
@@ -227,10 +229,10 @@ class StudentDashboardView extends StatelessWidget {
                     BoxShadow(color: AppColors.primary.withValues(alpha: 0.3), blurRadius: 20, offset: const Offset(0, 10)),
                   ],
                 ),
-                child: const Center(
+                child: Center(
                   child: Text(
                     "Start Focus Timer",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF003824), fontSize: 16),
+                    style: AppStyles.custom(context, fontSize: 16, color: const Color(0xFF003824), weight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -254,9 +256,9 @@ class StudentDashboardView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
       child: Column(
         children: [
-          Text(value, style: Theme.of(context).textTheme.displayMedium?.copyWith(color: color, fontSize: 36)),
+          Text(value, style: AppStyles.custom(context, fontSize: 36, color: color)),
           const SizedBox(height: 4),
-          Text(label.toUpperCase(), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.onSurfaceVariant)),
+          Text(label.toUpperCase(), style: AppStyles.custom(context, fontSize: 10, weight: FontWeight.bold, color: AppColors.onSurfaceVariant)),
         ],
       ),
     );

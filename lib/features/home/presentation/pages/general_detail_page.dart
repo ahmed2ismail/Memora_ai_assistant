@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../core/widgets/glass_card.dart';
 import '../../../../di/injection_container.dart';
 import '../../domain/entities/general_models.dart';
@@ -103,7 +104,7 @@ class GeneralDetailView extends StatelessWidget {
           right: 0,
           height: 100,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
@@ -134,11 +135,11 @@ class GeneralDetailView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("ACTIVE REMINDER", style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.secondary, letterSpacing: 1.5)),
+                      Text("ACTIVE REMINDER", style: AppStyles.custom(context, fontSize: 10, color: AppColors.secondary, weight: FontWeight.bold, letterSpacing: 1.5)),
                       const SizedBox(height: 4),
-                      Text(reminder.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      Text(reminder.title, style: AppStyles.body16(context)),
                       const SizedBox(height: 2),
-                      Text(reminder.locationDescription, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.onSurfaceVariant)),
+                      Text(reminder.locationDescription, style: AppStyles.body12(context)),
                     ],
                   ),
                 ),
@@ -157,21 +158,21 @@ class GeneralDetailView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Today's Focus", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 32, letterSpacing: -0.5)),
+            Text("Today's Focus", style: AppStyles.headline(context, fontSize: 32).copyWith(letterSpacing: -0.5)),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               decoration: BoxDecoration(color: AppColors.surfaceContainerHigh, borderRadius: BorderRadius.circular(20)),
-              child: Text("${state.pendingTasks} Pending", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.onSurfaceVariant)),
+              child: Text("${state.pendingTasks} Pending", style: AppStyles.body12(context, weight: FontWeight.bold)),
             ),
           ],
         ),
         const SizedBox(height: 24),
-        ...state.tasks.map((task) => _buildTaskItem(task)),
+        ...state.tasks.map((task) => _buildTaskItem(context, task)),
       ],
     );
   }
 
-  Widget _buildTaskItem(DetailTaskItem task) {
+  Widget _buildTaskItem(BuildContext context, DetailTaskItem task) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: GlassCard(
@@ -196,12 +197,12 @@ class GeneralDetailView extends StatelessWidget {
                 children: [
                   Text(
                     task.title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      decoration: task.isCompleted ? TextDecoration.lineThrough : null,
+                    style: AppStyles.custom(
+                      context, 
+                      fontSize: 18, 
+                      weight: FontWeight.bold, 
                       color: task.isCompleted ? AppColors.onSurfaceVariant : AppColors.onSurface,
-                    ),
+                    ).copyWith(decoration: task.isCompleted ? TextDecoration.lineThrough : null),
                   ),
                   const SizedBox(height: 4),
                   Row(
@@ -209,16 +210,16 @@ class GeneralDetailView extends StatelessWidget {
                       if (!task.isCompleted) ...[
                         const Icon(Icons.schedule, size: 14, color: AppColors.onSurfaceVariant),
                         const SizedBox(width: 4),
-                        Text(task.timeText, style: const TextStyle(fontSize: 12, color: AppColors.onSurfaceVariant)),
+                        Text(task.timeText, style: AppStyles.body12(context)),
                         const SizedBox(width: 16),
                       ],
                       if (task.isHighPriority) ...[
                         const Icon(Icons.priority_high, size: 14, color: AppColors.secondary),
                         const SizedBox(width: 4),
-                        const Text("High Priority", style: TextStyle(fontSize: 12, color: AppColors.secondary)),
+                        Text("High Priority", style: AppStyles.body12(context, color: AppColors.secondary)),
                       ],
                       if (task.isCompleted) ...[
-                        const Text("Done", style: TextStyle(fontSize: 12, color: AppColors.onSurfaceVariant)),
+                        Text("Done", style: AppStyles.body12(context)),
                       ]
                     ],
                   ),
@@ -240,9 +241,9 @@ class GeneralDetailView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Habit Momentum", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              Text("Habit Momentum", style: AppStyles.body24(context)),
               const SizedBox(height: 24),
-              ...habits.map((habit) => _buildDetailHabitItem(habit)),
+              ...habits.map((habit) => _buildDetailHabitItem(context, habit)),
               const SizedBox(height: 32),
               Container(
                 padding: const EdgeInsets.all(16),
@@ -252,10 +253,10 @@ class GeneralDetailView extends StatelessWidget {
                   border: Border.all(color: AppColors.primary.withValues(alpha: 0.1)),
                 ),
                 child: Row(
-                  children: const [
-                    Icon(Icons.emoji_events, color: AppColors.primary),
-                    SizedBox(width: 12),
-                    Text("You're 15% more productive than last week!", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  children: [
+                    const Icon(Icons.emoji_events, color: AppColors.primary),
+                    const SizedBox(width: 12),
+                    Text("You're 15% more productive than last week!", style: AppStyles.body14(context, weight: FontWeight.bold)),
                   ],
                 ),
               )
@@ -271,7 +272,7 @@ class GeneralDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailHabitItem(HabitItem habit) {
+  Widget _buildDetailHabitItem(BuildContext context, HabitItem habit) {
     final color = _fromHex(habit.colorHex);
     return Padding(
       padding: const EdgeInsets.only(bottom: 24.0),
@@ -281,8 +282,8 @@ class GeneralDetailView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(habit.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              Text(habit.progressText, style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+              Text(habit.title, style: AppStyles.body14(context, color: AppColors.onSurface, weight: FontWeight.bold)),
+              Text(habit.progressText, style: AppStyles.body14(context, color: color, weight: FontWeight.bold)),
             ],
           ),
           const SizedBox(height: 12),
@@ -308,9 +309,9 @@ class GeneralDetailView extends StatelessWidget {
             children: [
               const Icon(Icons.psychology, size: 48, color: AppColors.secondary),
               const SizedBox(height: 16),
-              const Text("Mindful Planning,\nNot Just Listing.", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 32, height: 1.1)),
+              Text("Mindful Planning,\nNot Just Listing.", style: AppStyles.headline(context, fontSize: 32).copyWith(height: 1.1)),
               const SizedBox(height: 16),
-              Text("Memora analyzes your peak focus times to suggest optimal task scheduling.", style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5)),
+              Text("Memora analyzes your peak focus times to suggest optimal task scheduling.", style: AppStyles.body14(context).copyWith(height: 1.5)),
             ],
           ),
         ),

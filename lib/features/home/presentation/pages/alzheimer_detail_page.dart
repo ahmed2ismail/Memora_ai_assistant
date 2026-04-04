@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../core/widgets/glass_card.dart';
 import '../../../../di/injection_container.dart';
 import '../../domain/entities/alzheimer_models.dart';
@@ -82,21 +83,21 @@ class AlzheimerDetailView extends StatelessWidget {
                   children: [
                     Container(width: 8, height: 8, decoration: const BoxDecoration(color: AppColors.primary, shape: BoxShape.circle)),
                     const SizedBox(width: 8),
-                    const Text("FACE RECOGNITION ACTIVE", style: TextStyle(color: AppColors.primary, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                    Text("FACE RECOGNITION ACTIVE", style: AppStyles.custom(context, color: AppColors.primary, fontSize: 12, weight: FontWeight.bold, letterSpacing: 1.5)),
                   ],
                 ),
               ),
               const SizedBox(height: 24),
               RichText(
-                text: const TextSpan(
+                text: TextSpan(
                   children: [
-                    TextSpan(text: "Who is ", style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: AppColors.onSurface, fontFamily: 'Plus Jakarta Sans')),
-                    TextSpan(text: "Visiting?", style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: AppColors.secondary, fontFamily: 'Plus Jakarta Sans')),
+                    TextSpan(text: "Who is ", style: AppStyles.headline(context, fontSize: 48, color: AppColors.onSurface)),
+                    TextSpan(text: "Visiting?", style: AppStyles.headline(context, fontSize: 48, color: AppColors.secondary)),
                   ],
                 ),
               ),
               const SizedBox(height: 16),
-              Text(data.instruction, style: const TextStyle(fontSize: 20, color: AppColors.onSurfaceVariant)),
+              Text(data.instruction, style: AppStyles.body16(context, color: AppColors.onSurfaceVariant).copyWith(fontSize: 20)),
               const SizedBox(height: 32),
               Container(
                 height: 200,
@@ -136,10 +137,10 @@ class AlzheimerDetailView extends StatelessWidget {
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.mic, size: 64, color: AppColors.onPrimary),
-                    SizedBox(height: 16),
-                    Text("\"Ask Me Anything\"", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.onPrimary)),
+                  children: [
+                    const Icon(Icons.mic, size: 64, color: AppColors.onPrimary),
+                    const SizedBox(height: 16),
+                    Text("\"Ask Me Anything\"", style: AppStyles.body24(context, color: AppColors.onPrimary)),
                   ],
                 ),
               ),
@@ -155,10 +156,10 @@ class AlzheimerDetailView extends StatelessWidget {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.emergency, size: 48, color: AppColors.error),
-                  SizedBox(width: 16),
-                  Text("HELP", style: TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: AppColors.error, letterSpacing: 5)),
+                children: [
+                  const Icon(Icons.emergency, size: 48, color: AppColors.error),
+                  const SizedBox(width: 16),
+                  Text("HELP", style: AppStyles.custom(context, fontSize: 32, weight: FontWeight.w900, color: AppColors.error, letterSpacing: 5)),
                 ],
               ),
             )
@@ -192,19 +193,19 @@ class AlzheimerDetailView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: const [
-            Icon(Icons.medication, size: 32, color: AppColors.secondary),
-            SizedBox(width: 12),
-            Text("Today's Medicines", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          children: [
+            const Icon(Icons.medication, size: 32, color: AppColors.secondary),
+            const SizedBox(width: 12),
+            Text("Today's Medicines", style: AppStyles.body24(context)),
           ],
         ),
         const SizedBox(height: 24),
-        ...medicines.map((med) => _buildMedicationCard(med)),
+        ...medicines.map((med) => _buildMedicationCard(context, med)),
       ],
     );
   }
 
-  Widget _buildMedicationCard(DetailMedicineItem med) {
+  Widget _buildMedicationCard(BuildContext context, DetailMedicineItem med) {
     final bool isDone = med.isTaken;
     final Color stripColor = isDone ? AppColors.primary : AppColors.secondary;
     
@@ -233,11 +234,11 @@ class AlzheimerDetailView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(med.timeLabel, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: isDone ? AppColors.onSurfaceVariant : AppColors.secondary)),
+                Text(med.timeLabel, style: AppStyles.body16(context, color: isDone ? AppColors.onSurfaceVariant : AppColors.secondary)),
                 const SizedBox(height: 4),
-                Text(med.name, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900)),
+                Text(med.name, style: AppStyles.custom(context, fontSize: 28, weight: FontWeight.w900)),
                 const SizedBox(height: 4),
-                Text(med.dosageDescription, style: const TextStyle(fontSize: 18, color: AppColors.onSurfaceVariant)),
+                Text(med.dosageDescription, style: AppStyles.body16(context, color: AppColors.onSurfaceVariant).copyWith(fontSize: 18)),
               ],
             ),
           ),
@@ -247,7 +248,7 @@ class AlzheimerDetailView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               decoration: BoxDecoration(color: AppColors.secondary, borderRadius: BorderRadius.circular(16)),
-              child: const Text("Take Now", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.surfaceDim)),
+              child: Text("Take Now", style: AppStyles.body16(context, color: AppColors.surfaceDim).copyWith(fontSize: 18)),
             )
         ],
       ),
@@ -266,14 +267,14 @@ class AlzheimerDetailView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  children: const [
-                    Icon(Icons.location_on, size: 28, color: AppColors.primary),
-                    SizedBox(width: 12),
-                    Text("You are Safe", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  children: [
+                    const Icon(Icons.location_on, size: 28, color: AppColors.primary),
+                    const SizedBox(width: 12),
+                    Text("You are Safe", style: AppStyles.body24(context)),
                   ],
                 ),
                 const SizedBox(height: 8),
-                Text("You are currently at ${mapData.locationName}.", style: const TextStyle(fontSize: 18, color: AppColors.onSurfaceVariant)),
+                Text("You are currently at ${mapData.locationName}.", style: AppStyles.body16(context, color: AppColors.onSurfaceVariant).copyWith(fontSize: 18)),
               ],
             ),
           ),
@@ -296,7 +297,7 @@ class AlzheimerDetailView extends StatelessWidget {
                   child: Container(
                     width: 16,
                     height: 16,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.primary,
                       shape: BoxShape.circle,
                       boxShadow: [BoxShadow(color: AppColors.primary, blurRadius: 20)],
@@ -314,8 +315,8 @@ class AlzheimerDetailView extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 decoration: BoxDecoration(color: AppColors.surfaceContainerHighest.withValues(alpha: 0.5)),
-                child: const Center(
-                  child: Text("Call Caretaker", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                child: Center(
+                  child: Text("Call Caretaker", style: AppStyles.body16(context, color: AppColors.primary).copyWith(fontSize: 20)),
                 ),
               ),
             ),

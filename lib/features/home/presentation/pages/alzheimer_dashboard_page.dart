@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../core/widgets/glass_card.dart';
 import '../../../../di/injection_container.dart';
 import 'package:go_router/go_router.dart';
@@ -65,19 +66,20 @@ class AlzheimerDashboardView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           "SAFE SPACE",
-          style: TextStyle(
+          style: AppStyles.custom(
+            context,
             color: AppColors.secondary,
             fontSize: 12,
-            fontWeight: FontWeight.bold,
+            weight: FontWeight.bold,
             letterSpacing: 2,
           ),
         ),
         const SizedBox(height: 8),
-        Text("Good morning, ${state.patientName}.", style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 36)),
+        Text("Good morning, ${state.patientName}.", style: AppStyles.headline(context, fontSize: 36)),
         const SizedBox(height: 8),
-        Text(state.dateAndWeather, style: Theme.of(context).textTheme.bodyLarge),
+        Text(state.dateAndWeather, style: AppStyles.body16(context)),
       ],
     );
   }
@@ -106,9 +108,9 @@ class AlzheimerDashboardView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Scan Person", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                    Text("Scan Person", style: AppStyles.body24(context)),
                     const SizedBox(height: 4),
-                    Text("Point camera to remember a face", style: Theme.of(context).textTheme.bodyMedium),
+                    Text("Point camera to remember a face", style: AppStyles.body14(context)),
                   ],
                 ),
               ],
@@ -127,10 +129,10 @@ class AlzheimerDashboardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              Icon(Icons.medication, color: AppColors.secondary),
-              SizedBox(width: 8),
-              Expanded(child: Text("Next Medication", style: TextStyle(color: AppColors.secondary, fontWeight: FontWeight.bold))),
+            children: [
+              const Icon(Icons.medication, color: AppColors.secondary),
+              const SizedBox(width: 8),
+              Expanded(child: Text("Next Medication", style: AppStyles.body14(context, color: AppColors.secondary, weight: FontWeight.bold))),
             ],
           ),
           const SizedBox(height: 16),
@@ -143,9 +145,9 @@ class AlzheimerDashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(med.medicineName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                Text(med.medicineName, style: AppStyles.body16(context)),
                 const SizedBox(height: 4),
-                Text(med.instructions, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.onSurfaceVariant)),
+                Text(med.instructions, style: AppStyles.body12(context)),
               ],
             ),
           )
@@ -162,10 +164,10 @@ class AlzheimerDashboardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              Icon(Icons.emergency_share, color: AppColors.error),
-              SizedBox(width: 8),
-              Expanded(child: Text("EMERGENCY", style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold, letterSpacing: 1))),
+            children: [
+              const Icon(Icons.emergency_share, color: AppColors.error),
+              const SizedBox(width: 8),
+              Expanded(child: Text("EMERGENCY", style: AppStyles.custom(context, fontSize: 14, color: AppColors.error, weight: FontWeight.bold, letterSpacing: 1))),
             ],
           ),
           const SizedBox(height: 16),
@@ -179,7 +181,7 @@ class AlzheimerDashboardView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
               onPressed: () {},
-              child: const Text("HELP NOW", style: TextStyle(fontWeight: FontWeight.bold)),
+              child: Text("HELP NOW", style: AppStyles.body14(context, color: AppColors.error, weight: FontWeight.bold)),
             ),
           )
         ],
@@ -205,32 +207,32 @@ class AlzheimerDashboardView extends StatelessWidget {
                 child: const Icon(Icons.psychology, color: Color(0xFF003824)),
               ),
               const SizedBox(width: 16),
-              const Text("Memora AI", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+              Text("Memora AI", style: AppStyles.body24(context)),
             ],
           ),
           const SizedBox(height: 16),
-          Text(aiPrompt.message, style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: AppColors.onSurfaceVariant, height: 1.5)),
+          Text(aiPrompt.message, style: AppStyles.body16(context, color: AppColors.onSurfaceVariant).copyWith(fontStyle: FontStyle.italic, height: 1.5)),
           const SizedBox(height: 24),
           const Divider(color: AppColors.surfaceContainerHighest, thickness: 2),
           const SizedBox(height: 16),
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: aiPrompt.suggestions.map((suggestion) => _buildSuggestionPill(suggestion)).toList(),
+            children: aiPrompt.suggestions.map((suggestion) => _buildSuggestionPill(context, suggestion)).toList(),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSuggestionPill(String text) {
+  Widget _buildSuggestionPill(BuildContext context, String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: AppColors.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(24),
       ),
-      child: Text(text, style: const TextStyle(color: AppColors.primary, fontSize: 12)),
+      child: Text(text, style: AppStyles.body12(context, color: AppColors.primary)),
     );
   }
 }
