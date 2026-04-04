@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../core/widgets/glass_card.dart';
-import '../../../../core/widgets/primary_button.dart';
 
 class ProfileSelectionSection extends StatelessWidget {
   final VoidCallback onProfileSelected;

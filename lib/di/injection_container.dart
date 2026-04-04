@@ -9,6 +9,8 @@ import '../features/onboarding/domain/usecases/check_if_user_is_first_timer.dart
 import '../features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import '../features/home/presentation/cubit/general_dashboard_cubit.dart';
 
+import '../features/home/presentation/cubit/student_dashboard_cubit.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initDI() async {
@@ -19,6 +21,7 @@ Future<void> initDI() async {
       ));
 
   sl.registerFactory(() => GeneralDashboardCubit());
+  sl.registerFactory(() => StudentDashboardCubit());
 
   sl.registerLazySingleton(() => CacheFirstTimer(sl()));
   sl.registerLazySingleton(() => CheckIfUserIsFirstTimer(sl()));
