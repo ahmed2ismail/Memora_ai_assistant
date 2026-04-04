@@ -15,4 +15,5 @@ class AppColors {
   static const Color surfaceContainerHigh = Color(0xFF222A3D);
   static const Color outlineVariant = Color(0xFF42474D);
   static const Color onPrimary = Color(0xFF003824);
+  static const Color errorContainer = Color(0xFF93000A);
 }

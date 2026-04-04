@@ -84,10 +84,17 @@ class StudentDashboardView extends StatelessWidget {
               Text("Cognitive Flow", style: Theme.of(context).textTheme.headlineLarge),
             ],
           ),
-          Text(
-            "${hoursFocused.toInt()} Hours Focused Today",
-            style: const TextStyle(color: AppColors.secondary, fontWeight: FontWeight.bold, fontSize: 12),
-          ),
+          GestureDetector(
+            onTap: () => GoRouter.of(context).push('/dashboard/student-details/today'),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Text("Explore", style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 12)),
+            ),
+          )
         ],
       ),
     );
