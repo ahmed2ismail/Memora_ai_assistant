@@ -22,6 +22,7 @@ import '../features/ai_assistant/data/repositories/ai_repository_impl.dart';
 import '../features/ai_assistant/domain/repositories/ai_repository.dart';
 import '../features/ai_assistant/domain/usecases/send_message_usecase.dart';
 import '../features/ai_assistant/presentation/cubit/ai_assistant_cubit.dart';
+import '../features/settings/presentation/cubit/settings_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -52,6 +53,11 @@ Future<void> initDI() async {
   sl.registerFactory(() => StudentDetailCubit());
   sl.registerFactory(() => AlzheimerDashboardCubit());
   sl.registerFactory(() => AlzheimerDetailCubit());
+
+  // ===================================================================
+  // Features - Settings & Pricing
+  // ===================================================================
+  sl.registerFactory(() => SettingsCubit());
 
   // ===================================================================
   // Features - AI Assistant (Gemini Integration)
