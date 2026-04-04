@@ -6,9 +6,7 @@ import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/home/presentation/pages/alzheimer_dashboard_page.dart';
 import '../../features/home/presentation/pages/alzheimer_detail_page.dart';
 
-import '../../features/home/presentation/pages/general_dashboard_page.dart';
 import '../../features/home/presentation/pages/general_detail_page.dart';
-import '../../features/home/presentation/pages/student_dashboard_page.dart';
 import '../../features/home/presentation/pages/student_detail_page.dart';
 import '../../features/ai_assistant/presentation/pages/ai_assistant_page.dart';
 

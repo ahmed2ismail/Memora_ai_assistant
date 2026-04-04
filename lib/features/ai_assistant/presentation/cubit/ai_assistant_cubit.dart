@@ -1,9 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/ai_entities.dart';
+import '../../domain/usecases/send_message_usecase.dart';
 import 'ai_assistant_state.dart';
 
 class AiAssistantCubit extends Cubit<AiAssistantState> {
-  AiAssistantCubit() : super(const AiAssistantInitial()) {
+  final SendMessageUseCase _sendMessageUseCase;
+
+  AiAssistantCubit({required SendMessageUseCase sendMessageUseCase})
+      : _sendMessageUseCase = sendMessageUseCase,
+        super(const AiAssistantInitial()) {
     _initDashboard();
   }
 
@@ -14,12 +19,12 @@ class AiAssistantCubit extends Cubit<AiAssistantState> {
         QuickSuggestion(
           iconName: "auto_awesome",
           text: '"Remind me to buy flowers when I\'m near the market"',
-          colorHex: "#E9C349", // secondary
+          colorHex: "#E9C349",
         ),
         QuickSuggestion(
           iconName: "schedule",
           text: '"Plan my deep focus session for tomorrow at 9 AM"',
-          colorHex: "#4EDEA3", // primary
+          colorHex: "#4EDEA3",
         ),
       ],
       contexts: [
@@ -30,6 +35,37 @@ class AiAssistantCubit extends Cubit<AiAssistantState> {
         ),
       ],
     ));
+  }
+
+  /// Builds a serialized representation of the user's dashboard state
+  /// to inject as system-prompt context so Gemini has local awareness.
+  String _buildDashboardContext() {
+    // In production this would serialize real Isar/local DB data.
+    // For now we provide a representative mock snapshot.
+    return '''
+{
+  "user": "Alex",
+  "mode": "general",
+  "today": "${DateTime.now().toIso8601String().split('T').first}",
+  "tasks": [
+    {"title": "Submit project report", "status": "pending", "priority": "high"},
+    {"title": "Morning meditation", "status": "completed"},
+    {"title": "Buy groceries", "status": "pending"}
+  ],
+  "habits": [
+    {"name": "Drink water", "current": 5, "goal": 8},
+    {"name": "Read 30 min", "current": 1, "goal": 1}
+  ],
+  "medications": [
+    {"name": "Vitamin D", "time": "08:00 AM", "taken": true},
+    {"name": "Iron supplement", "time": "02:00 PM", "taken": false}
+  ],
+  "upcoming_events": [
+    {"title": "Team meeting", "time": "3:00 PM"},
+    {"title": "Evening walk", "time": "6:30 PM"}
+  ]
+}
+''';
   }
 
   void sendMessage(String text) async {
@@ -44,34 +80,48 @@ class AiAssistantCubit extends Cubit<AiAssistantState> {
       contexts: state.contexts,
     ));
 
-    // Simulate AI processing latency
-    await Future.delayed(const Duration(milliseconds: 1500));
+    try {
+      // Build conversation history for the API
+      final conversationHistory = history.map((msg) => {
+        'role': msg.isUser ? 'user' : 'model',
+        'text': msg.text,
+      }).toList();
 
-    String aiResponseText = _getSimulatedResponse(text);
-    final aiMessage = ChatMessage(text: aiResponseText, isUser: false, timestamp: DateTime.now());
-    
-    emit(AiAssistantInitial(
-      chatHistory: List.from(history)..add(aiMessage),
-      suggestions: state.suggestions,
-      contexts: state.contexts,
-    ));
-  }
+      final aiResponseText = await _sendMessageUseCase(
+        message: text,
+        conversationHistory: conversationHistory,
+        dashboardContext: _buildDashboardContext(),
+      );
 
-  String _getSimulatedResponse(String input) {
-    input = input.toLowerCase();
-    if (input.contains("remind") || input.contains("remember")) {
-      return "Got it! I've securely stored that reminder for you. I'll notify you effectively when the time comes.";
-    } else if (input.contains("plan") || input.contains("schedule")) {
-      return "I've analyzed your schedule. You have a gap at 3 PM. Shall I set a dedicated reminder block?";
-    } else if (input.contains("yes") || input.contains("please")) {
-      return "Done. It's added to your daily ritual.";
-    } else {
-      return "I'm processing that context locally to ensure your privacy. Anything else you need me to remember?";
+      final aiMessage = ChatMessage(
+        text: aiResponseText,
+        isUser: false,
+        timestamp: DateTime.now(),
+      );
+
+      emit(AiAssistantInitial(
+        chatHistory: List.from(history)..add(aiMessage),
+        suggestions: state.suggestions,
+        contexts: state.contexts,
+      ));
+    } catch (e) {
+      // On error, emit an error message as an AI bubble so the user sees feedback
+      final errorMessage = ChatMessage(
+        text: "I'm having trouble connecting right now. Please check your API key and internet connection and try again.",
+        isUser: false,
+        timestamp: DateTime.now(),
+      );
+
+      emit(AiAssistantError(
+        chatHistory: List.from(history)..add(errorMessage),
+        suggestions: state.suggestions,
+        contexts: state.contexts,
+        errorMessage: e.toString(),
+      ));
     }
   }
 
   void applySuggestion(String text) {
-    // Trim the outer quotes from the suggestion text
     final cleanText = text.replaceAll('"', '');
     sendMessage(cleanText);
   }

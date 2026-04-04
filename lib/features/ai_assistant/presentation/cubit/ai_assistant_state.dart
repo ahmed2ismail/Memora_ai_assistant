@@ -31,3 +31,16 @@ class AiAssistantProcessing extends AiAssistantState {
     super.contexts,
   });
 }
+
+class AiAssistantError extends AiAssistantState {
+  final String errorMessage;
+  const AiAssistantError({
+    super.chatHistory,
+    super.suggestions,
+    super.contexts,
+    required this.errorMessage,
+  });
+
+  @override
+  List<Object> get props => [...super.props, errorMessage];
+}
