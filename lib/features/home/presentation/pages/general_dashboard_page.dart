@@ -39,7 +39,7 @@ class GeneralDashboardView extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: constraints.maxHeight),
           child: Padding(
-            padding: const EdgeInsets.only(top: 100, bottom: 120, left: 24, right: 24),
+            padding: const EdgeInsets.only(top: 160, bottom: 120, left: 24, right: 24),
             child: BlocBuilder<GeneralDashboardCubit, GeneralDashboardState>(
               builder: (context, state) {
                 if (state is GeneralDashboardLoading) {
