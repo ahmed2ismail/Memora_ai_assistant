@@ -15,14 +15,15 @@ class StudentDetailLoaded extends StudentDetailState {
   final List<TimelineEventItem> timelineEvents;
   final List<QuickActionItem> quickActions;
   final String? alertMessage;
+  final DateTime _ts;
 
-  const StudentDetailLoaded({
+  StudentDetailLoaded({
     required this.nextAwakeningTime,
     required this.nextAwakeningPeriod,
     required this.timelineEvents,
     required this.quickActions,
     this.alertMessage,
-  });
+  }) : _ts = DateTime.now();
 
   StudentDetailLoaded copyWith({
     String? nextAwakeningTime,
@@ -42,5 +43,5 @@ class StudentDetailLoaded extends StudentDetailState {
   }
 
   @override
-  List<Object?> get props => [nextAwakeningTime, nextAwakeningPeriod, timelineEvents, quickActions, alertMessage];
+  List<Object?> get props => [nextAwakeningTime, nextAwakeningPeriod, timelineEvents, quickActions, alertMessage, _ts];
 }

@@ -27,51 +27,67 @@ class AlzheimerDashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveLayoutWidget(
-      mobile: (context, constraints) => SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: constraints.maxHeight),
-          child: SafeArea(
-            top: true,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 120, left: 24, right: 24),
-              child: BlocConsumer<AlzheimerDashboardCubit, AlzheimerDashboardState>(
-                listener: (context, state) {
-                  if (state is AlzheimerDashboardLoaded && state.alertMessage != null) {
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(SnackBar(
-                          content: Text(state.alertMessage!),
-                          duration: const Duration(seconds: 1)));
-                  }
-                },
-                builder: (context, state) {
-                  if (state is AlzheimerDashboardLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is AlzheimerDashboardLoaded) {
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AlzheimerHeader(state: state),
-                        const SizedBox(height: 32),
-                        const ScanPersonCard(),
-                        const SizedBox(height: 16),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(child: AlzheimerMedicationCard(med: state.nextMedication)),
-                            const SizedBox(width: 16),
-                            const Expanded(child: AlzheimerEmergencyCard()),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-                        AlzheimerAiCard(aiPrompt: state.aiPrompt),
-                      ],
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
+    // BlocListener wraps the entire view so ScaffoldMessenger
+    // is always available in the correct context regardless of
+    // how deep the triggering widget is in the tree.
+    return BlocListener<AlzheimerDashboardCubit, AlzheimerDashboardState>(
+      listener: (context, state) {
+        if (state is AlzheimerDashboardLoaded && state.alertMessage != null) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Text(
+                  state.alertMessage!,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: const Color(0xFF1B2538),
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                duration: const Duration(seconds: 2),
+              ),
+            );
+        }
+      },
+      child: AdaptiveLayoutWidget(
+        mobile: (context, constraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: SafeArea(
+              top: true,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 120, left: 24, right: 24),
+                child: BlocBuilder<AlzheimerDashboardCubit, AlzheimerDashboardState>(
+                  builder: (context, state) {
+                    if (state is AlzheimerDashboardLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is AlzheimerDashboardLoaded) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AlzheimerHeader(state: state),
+                          const SizedBox(height: 32),
+                          const ScanPersonCard(),
+                          const SizedBox(height: 16),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                  child: AlzheimerMedicationCard(med: state.nextMedication)),
+                              const SizedBox(width: 16),
+                              const Expanded(child: AlzheimerEmergencyCard()),
+                            ],
+                          ),
+                          const SizedBox(height: 24),
+                          AlzheimerAiCard(aiPrompt: state.aiPrompt),
+                        ],
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
               ),
             ),
           ),

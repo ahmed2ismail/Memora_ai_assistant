@@ -25,42 +25,56 @@ class SettingsPricingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.only(top: 20, bottom: 120, left: 24, right: 24),
-      child: BlocConsumer<SettingsCubit, SettingsState>(
-        listener: (context, state) {
-          if (state is SettingsLoaded && state.alertMessage != null) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(SnackBar(content: Text(state.alertMessage!), duration: const Duration(seconds: 1)));
-          }
-        },
-        builder: (context, state) {
-          if (state is SettingsLoading) {
-            return const SizedBox(
-              height: 500,
-              child: Center(child: CircularProgressIndicator()),
+    return BlocListener<SettingsCubit, SettingsState>(
+      listener: (context, state) {
+        if (state is SettingsLoaded && state.alertMessage != null) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Text(
+                  state.alertMessage!,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: const Color(0xFF1B2538),
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                duration: const Duration(seconds: 2),
+              ),
             );
-          } else if (state is SettingsLoaded) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeader(context),
-                const SizedBox(height: 32),
-                _buildExperienceModeCard(context, state),
-                const SizedBox(height: 16),
-                _buildAccessibilityBento(context, state),
-                const SizedBox(height: 16),
-                _buildCognitiveRemindersCard(context, state),
-                const SizedBox(height: 48),
-                _buildPricingHeader(context),
-                const SizedBox(height: 32),
-                _buildPricingCards(context, state.plans),
-              ],
-            );
-          }
-          return const SizedBox.shrink();
-        },
+        }
+      },
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.only(top: 20, bottom: 120, left: 24, right: 24),
+        child: BlocBuilder<SettingsCubit, SettingsState>(
+          builder: (context, state) {
+            if (state is SettingsLoading) {
+              return const SizedBox(
+                height: 500,
+                child: Center(child: CircularProgressIndicator()),
+              );
+            } else if (state is SettingsLoaded) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(context),
+                  const SizedBox(height: 32),
+                  _buildExperienceModeCard(context, state),
+                  const SizedBox(height: 16),
+                  _buildAccessibilityBento(context, state),
+                  const SizedBox(height: 16),
+                  _buildCognitiveRemindersCard(context, state),
+                  const SizedBox(height: 48),
+                  _buildPricingHeader(context),
+                  const SizedBox(height: 32),
+                  _buildPricingCards(context, state.plans),
+                ],
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }

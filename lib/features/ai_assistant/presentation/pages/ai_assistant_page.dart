@@ -123,7 +123,7 @@ class _AiAssistantViewState extends State<AiAssistantView> {
           ),
         ),
         const SizedBox(height: 24),
-        Text("I'm listening, Alex.", style: AppStyles.headline(context, weight: FontWeight.w800, fontSize: 32)),
+        Text("I'm listening, User.", style: AppStyles.headline(context, weight: FontWeight.w800, fontSize: 32)),
         const SizedBox(height: 8),
         Text("Tell me what you need to remember.", style: AppStyles.body14(context)),
       ],
